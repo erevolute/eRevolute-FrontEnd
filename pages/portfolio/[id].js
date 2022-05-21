@@ -16,7 +16,7 @@ function PortfolioDetails({ title = "" }) {
   const [portfolio, setPortfolio] = useState([]);
   useEffect(() => {
   
-    fetch(`http://localhost:5000/portfolio/${id}`)
+    fetch(`https://gentle-everglades-88789.herokuapp.com/portfolio/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setPortfolio(data)

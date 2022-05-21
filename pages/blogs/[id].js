@@ -11,7 +11,7 @@ function BlogsDetails({ title = "" }) {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/blogs/${id}`)
+    fetch(`https://gentle-everglades-88789.herokuapp.com/blogs/${id}`)
       .then((res) => res.json())
       .then((data) => setBlogs(data));
   }, []);
