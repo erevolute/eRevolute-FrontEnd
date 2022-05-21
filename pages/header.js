@@ -1,5 +1,6 @@
 
 import Link from "next/link";
+import Image from "next/image";
 // import img from "../pages/images/eRevolute-modified-ah-rgb.png"
 
 function Header(){

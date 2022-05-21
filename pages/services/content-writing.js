@@ -5,7 +5,7 @@ import Accordian from "../components/accordian";
 import Footer from "../footer";
 import Header from "../header";
 import Contact from "../home/contact";
-
+import Image from "next/image";
 
 function Content({ title = "Content Writing" }){
     return(

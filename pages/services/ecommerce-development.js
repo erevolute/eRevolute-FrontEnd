@@ -5,6 +5,7 @@ import Accordian from "../components/accordian";
 import Footer from "../footer";
 import Header from "../header";
 import Contact from "../home/contact";
+import Image from "next/image";
 
 function Ecommerce({ title = "eCommerce Development" }) {
   return (

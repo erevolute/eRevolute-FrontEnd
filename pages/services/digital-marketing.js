@@ -5,6 +5,7 @@ import { faCheckDouble } from "@fortawesome/free-solid-svg-icons";
 import Contact from "../home/contact";
 import Footer from "../footer";
 import Accordian from "../components/accordian";
+import Image from "next/image";
 
 function Digital({ title = "Digital Marketing" }) {
   return (

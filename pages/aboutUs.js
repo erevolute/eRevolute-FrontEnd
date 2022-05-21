@@ -3,6 +3,7 @@ import Footer from "./footer";
 import Header from "./header";
 import Contact from "./home/contact";
 import Head from "next/head";
+import Image from "next/image";
 
 function AboutUs({ title = "About Us" }){
     return(

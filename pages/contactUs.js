@@ -3,6 +3,7 @@ import Footer from "./home/footer";
 import GetInTouch from "./home/getInTouch";
 import Head from "next/head";
 import Contact from "./home/contact";
+import Image from "next/image";
 
 function ContactUs({ title = "Contact Us" }){
     return(

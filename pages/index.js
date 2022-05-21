@@ -14,6 +14,7 @@ import Subcribe from "./home/subcribe";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 
 
 export default function Home({ title = "Home" }) {

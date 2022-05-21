@@ -3,7 +3,8 @@ import Footer from "./footer";
 import Header from "./header";
 import Link from "next/link";
 import ReactHtmlParser from 'react-html-parser';
- 
+import Image from "next/image";
+
 function Blogs(){
     const [blogs , setBlogs] = useState([])
     useEffect(()=>{

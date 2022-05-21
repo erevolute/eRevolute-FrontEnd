@@ -1,6 +1,7 @@
 import { faFacebookF, faInstagram, faPinterest, faSkype } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import Image from "next/image";
 
 function Footer() {
   return (

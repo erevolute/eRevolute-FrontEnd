@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckDouble } from "@fortawesome/free-solid-svg-icons";
 import ReactHtmlParser from 'react-html-parser';
 import { ScaleLoader } from "react-spinners";
+import Image from "next/image";
 
 function PortfolioDetails({ title = "" }) {
   
