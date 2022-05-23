@@ -33,8 +33,7 @@ function PorfolioSecond() {
           <Tab>Web</Tab>
           <Tab>eCommerce</Tab>
           <Tab>Funnel</Tab>
-          <Tab>Marketing</Tab>
-          <Tab>Content</Tab>
+     
         </TabList>
 
         <TabPanel>

@@ -148,6 +148,7 @@ a {
   grid-gap: 20px;
 }
 .card {
+  cursor: pointer;
   padding: 20px;
   border-radius: 10px !important;
   background: #e0e0e0;
