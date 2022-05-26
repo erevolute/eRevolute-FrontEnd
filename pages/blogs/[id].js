@@ -16,18 +16,27 @@ function BlogsDetails({ title = "" }) {
       .then((data) => setBlogs(data));
   }, []);
 
+ console.log(blogs?.metaDescription)
+
+
   const customTitle = (blogs.title);
   title = customTitle;
 
   return (
     <div>
+
       <Head>
+
         <title>{title}</title>
+        <meta name="description" content={blogs.metaDescription}></meta>
+
+        <meta name="keywords" content={blogs.metaKeywords} />
       </Head>
       <Header></Header>
       <div className="blog-details container">
         <img src={blogs.img} alt="" />
         <div>
+        
         <h1>{blogs.title}</h1>
         <p>Posted : {blogs.date}</p>
         </div>

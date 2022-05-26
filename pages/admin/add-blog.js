@@ -10,10 +10,14 @@ import {
   Row,
   Spinner,
 } from "react-bootstrap";
+import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DashboardNav from "../components/dashboard";
 import Swal from "sweetalert2";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
+
 
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
@@ -63,7 +67,23 @@ const formats = [
 function AddBlog({ title = "Add Blogs" }) {
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState();
+  const router = useRouter();
+  const [user , loading , error] = useAuthState(auth);
+  const logout = () => {
+    signOut(auth);
+  };
+ 
 
+  useEffect(()=>{
+    if(!user){
+      router.push('/login')
+    }
+  })
+  if(loading){
+    return <div>
+      loading
+    </div>
+  }
 
   const handleValidSubmit = async(event) => {
 	  event.preventDefault()
@@ -72,10 +92,12 @@ function AddBlog({ title = "Add Blogs" }) {
    const title = event.target.blog.value;
   const catagory = event.target.catagory.value
   const  date = new Date().toLocaleDateString()
-  const img = event.target.img.value
+  const img = event.target.img.value;
+  const metaKeywords = event.target.keywords.value ;
+  const metaDescription = event.target.description.value ;
 
  
-      const data = ({ description , date, title , img , catagory })
+      const data = ({ description , date, title , img , catagory , metaDescription , metaKeywords })
     console.log(data)
 
     await fetch('https://gentle-everglades-88789.herokuapp.com/add' , {
@@ -111,6 +133,8 @@ function AddBlog({ title = "Add Blogs" }) {
 
   };
 
+
+  
   return (
     <div>
       <Head>
@@ -128,7 +152,7 @@ function AddBlog({ title = "Add Blogs" }) {
           <hr />
 
           <li>
-            <Link href="/admin">Dashboard</Link>{" "}
+            <Link href="/xadmin">Dashboard</Link>{" "}
           </li>
           <li>
             <Link href="/admin/add-blog">Add Blog</Link>
@@ -141,6 +165,9 @@ function AddBlog({ title = "Add Blogs" }) {
           </li>
           <li>
             <Link href="/admin/portfolio-list">Portfolio List</Link>
+          </li>
+          <li className="log-out" onClick={logout}>
+            <>Log Out </>
           </li>
         </div>
         <div className="nav-content">
@@ -160,10 +187,11 @@ function AddBlog({ title = "Add Blogs" }) {
                       className="needs-validation add-product-form"
                       onSubmit={handleValidSubmit}
                     >
+
                       <div className="form2 form-label-center">
-                        <FormGroup className="form-group mb-3 row">
+                      <FormGroup className="form-group mb-3 row">
                           <label className="col-xl-3 col-sm-4 mb-0">
-                            Blog Name :
+                            Blog Title :
                             
                           </label>
                           <div className="col-xl-8 col-sm-7">
@@ -177,6 +205,40 @@ function AddBlog({ title = "Add Blogs" }) {
                           </div>
                         
                         </FormGroup>
+                     
+                        <FormGroup className="form-group mb-3 row">
+                          <label className="col-xl-3 col-sm-4 mb-0">
+                            Meta Description :
+                            
+                          </label>
+                          <div className="col-xl-8 col-sm-7">
+                            <input
+                              className="form-control"
+                              name="description"
+                              id="validationCustom01"
+                              type="text"
+                              required
+                            />
+                          </div>
+                        
+                        </FormGroup>
+                        <FormGroup className="form-group mb-3 row">
+                          <label className="col-xl-3 col-sm-4 mb-0">
+                            Meta Keywords :
+                            
+                          </label>
+                          <div className="col-xl-8 col-sm-7">
+                            <input
+                              className="form-control"
+                              name="keywords"
+                              id="validationCustom01"
+                              type="text"
+                              required
+                            />
+                          </div>
+                        
+                        </FormGroup>
+                       
                         
                         <FormGroup className="form-group mb-3 row">
                           <label className="col-xl-3 col-sm-4 mb-0">
@@ -264,7 +326,7 @@ function AddBlog({ title = "Add Blogs" }) {
             </div>
             <div className="offcanvas-body">
             <li>
-            <Link href="/admin">Dashboard</Link>{" "}
+            <Link href="/xadmin">Dashboard</Link>{" "}
           </li>
           <li>
             <Link href="/admin/add-blog">Add Blog</Link>
@@ -277,6 +339,9 @@ function AddBlog({ title = "Add Blogs" }) {
           </li>
           <li>
             <Link href="/admin/portfolio-list">Portfolio List</Link>
+          </li>
+          <li className="log-out" onClick={logout}>
+            <>Log Out </>
           </li>
             </div>
             

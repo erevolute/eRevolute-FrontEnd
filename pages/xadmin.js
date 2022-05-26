@@ -1,6 +1,8 @@
+import { signOut } from "firebase/auth";
 import Head from "next/head";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import {
   Card,
   Col,
@@ -8,9 +10,29 @@ import {
   Row,
 
 } from "react-bootstrap";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../firebase.init";
 import DashboardNav from "./components/dashboard";
 
-function admin({ title = "Admin" }) {
+const  Admin = ({ title = "Admin" }) => {
+  const router = useRouter()
+  const [user , loading , error] = useAuthState(auth);
+  const logout = () => {
+    signOut(auth);
+  };
+ 
+
+  useEffect(()=>{
+    if(!user){
+      router.push('/login')
+    }
+  })
+  if(loading){
+    return <div>
+      loading
+    </div>
+  }
+
   return (
     <div>
       <Head>
@@ -28,7 +50,7 @@ function admin({ title = "Admin" }) {
           <hr />
 
           <li>
-            <Link href="/admin">Dashboard</Link>{" "}
+            <Link href="/xadmin">Dashboard</Link>{" "}
           </li>
           <li>
             <Link href="/admin/add-blog">Add Blog</Link>
@@ -41,6 +63,9 @@ function admin({ title = "Admin" }) {
           </li>
           <li>
             <Link href="/admin/portfolio-list">Portfolio List</Link>
+          </li>
+          <li className="log-out" onClick={logout}>
+            <>Log Out </>
           </li>
         </div>
         <div className="nav-content">
@@ -81,7 +106,7 @@ function admin({ title = "Admin" }) {
             </div>
             <div className="offcanvas-body">
             <li>
-            <Link href="/admin">Dashboard</Link>{" "}
+            <Link href="/xadmin">Dashboard</Link>{" "}
           </li>
           <li>
             <Link href="/admin/add-blog">Add Blog</Link>
@@ -95,6 +120,9 @@ function admin({ title = "Admin" }) {
           <li>
             <Link href="/admin/portfolio-list">Portfolio List</Link>
           </li>
+          <li className="log-out" onClick={logout}>
+            <>Log Out </>
+          </li>
             </div>
             
           </div>
@@ -104,4 +132,4 @@ function admin({ title = "Admin" }) {
   );
 }
 
-export default admin;
+export default Admin;

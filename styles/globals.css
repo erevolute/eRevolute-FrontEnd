@@ -1145,3 +1145,15 @@ box-shadow:  20px 20px 60px #bebebe,
 .form-control{
   width: 500px !important;
 }
+
+
+/*==================================================================================== login ================================================================= */
+.log-out{
+  width: 40%;
+  background: rgb(61, 138, 232);
+  cursor: pointer;
+}
+.login{
+    display: flex;
+    justify-content: center;
+}

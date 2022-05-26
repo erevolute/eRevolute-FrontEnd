@@ -5,6 +5,11 @@ import { Card, Col, Container, Row, Table, Spinner } from "react-bootstrap";
 import DashboardNav from "../components/dashboard";
 import Swal from "sweetalert2";
 
+import { useRouter } from "next/router";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
+
+
 function PortfolioList({ title = "Admin" }) {
   const [portfolio, setPortfolio] = useState([]);
   const [error, setError] = useState(false);
@@ -17,6 +22,23 @@ function PortfolioList({ title = "Admin" }) {
         setError(false);
       });
   }, []);
+  const router = useRouter()
+  const [user , loading ] = useAuthState(auth);
+  const logout = () => {
+    signOut(auth);
+  };
+ 
+
+  useEffect(()=>{
+    if(!user){
+      router.push('/login')
+    }
+  })
+  if(loading){
+    return <div>
+      loading
+    </div>
+  }
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -61,7 +83,7 @@ function PortfolioList({ title = "Admin" }) {
           <hr />
 
           <li>
-            <Link href="/admin">Dashboard</Link>{" "}
+            <Link href="/xadmin">Dashboard</Link>{" "}
           </li>
           <li>
             <Link href="/admin/add-blog">Add Blog</Link>
@@ -74,6 +96,9 @@ function PortfolioList({ title = "Admin" }) {
           </li>
           <li>
             <Link href="/admin/portfolio-list">Portfolio List</Link>
+          </li>
+          <li className="log-out" onClick={logout}>
+            <>Log Out </>
           </li>
         </div>
         <div className="nav-content">
@@ -158,7 +183,7 @@ function PortfolioList({ title = "Admin" }) {
             </div>
             <div className="offcanvas-body">
               <li>
-                <Link href="/admin">Dashboard</Link>{" "}
+                <Link href="/xadmin">Dashboard</Link>{" "}
               </li>
               <li>
                 <Link href="/admin/add-blog">Add Blog</Link>
@@ -172,6 +197,9 @@ function PortfolioList({ title = "Admin" }) {
               <li>
                 <Link href="/admin/portfolio-list">Portfolio List</Link>
               </li>
+              <li className="log-out" onClick={logout}>
+            <>Log Out </>
+          </li>
             </div>
           </div>
         </div>

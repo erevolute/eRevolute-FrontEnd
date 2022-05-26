@@ -13,8 +13,11 @@ import {
   Row,
   Spinner,
 } from "react-bootstrap";
+import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import DashboardNav from "../components/dashboard";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
@@ -65,7 +68,23 @@ function AddPortfolio({ title = "Admin" }) {
   const [description, setDescription] = useState("");
  
   const [isLoading, setIsLoading] = useState();
+  const router = useRouter()
+  const [user , loading , error] = useAuthState(auth);
+  const logout = () => {
+    signOut(auth);
+  };
  
+
+  useEffect(()=>{
+    if(!user){
+      router.push('/login')
+    }
+  })
+  if(loading){
+    return <div>
+      loading
+    </div>
+  }
 
   //	image upload
 
@@ -79,6 +98,8 @@ function AddPortfolio({ title = "Admin" }) {
     const img = event.target.img.value;
     const img2 = event.target.img2.value;
     const img3 = event.target.img3.value;
+    const metaKeywords = event.target.keywords.value ;
+    const metaDescription = event.target.description.value ;
 
     const data = ({
       description,
@@ -89,6 +110,9 @@ function AddPortfolio({ title = "Admin" }) {
       img3,
       img2,
       catagory,
+      metaKeywords,
+      metaDescription,
+      
     })
     console.log(data);
 
@@ -101,7 +125,7 @@ function AddPortfolio({ title = "Admin" }) {
     })
       .then((res) => res.json())
       .then((result) => {
-        setIsLoading(true)
+        
         if(result.insertedId){
           Swal.fire({
             position: 'center',
@@ -120,7 +144,7 @@ function AddPortfolio({ title = "Admin" }) {
         )
       });
     event.target.reset();
-
+    setIsLoading(false)
     setDescription(" ");
   };
 
@@ -141,7 +165,7 @@ function AddPortfolio({ title = "Admin" }) {
           <hr />
 
           <li>
-            <Link href="/admin">Dashboard</Link>{" "}
+            <Link href="/xadmin">Dashboard</Link>{" "}
           </li>
           <li>
             <Link href="/admin/add-blog">Add Blog</Link>
@@ -154,6 +178,9 @@ function AddPortfolio({ title = "Admin" }) {
           </li>
           <li>
             <Link href="/admin/portfolio-list">Portfolio List</Link>
+          </li>
+          <li className="log-out" onClick={logout}>
+            <>Log Out </>
           </li>
         </div>
         <div className="nav-content">
@@ -183,6 +210,38 @@ function AddPortfolio({ title = "Admin" }) {
                             <input
                               className="form-control"
                               name="portfolio"
+                              id="validationCustom01"
+                              type="text"
+                              required
+                            />
+                          </div>
+                        
+                        </FormGroup>
+                        <FormGroup className="form-group mb-3 row">
+                          <label className="col-xl-3 col-sm-4 mb-0">
+                            Meta Description :
+                            
+                          </label>
+                          <div className="col-xl-8 col-sm-7">
+                            <input
+                              className="form-control"
+                              name="description"
+                              id="validationCustom01"
+                              type="text"
+                              required
+                            />
+                          </div>
+                        
+                        </FormGroup>
+                        <FormGroup className="form-group mb-3 row">
+                          <label className="col-xl-3 col-sm-4 mb-0">
+                            Meta Keywords :
+                            
+                          </label>
+                          <div className="col-xl-8 col-sm-7">
+                            <input
+                              className="form-control"
+                              name="keywords"
                               id="validationCustom01"
                               type="text"
                               required
@@ -323,7 +382,7 @@ function AddPortfolio({ title = "Admin" }) {
             </div>
             <div className="offcanvas-body">
             <li>
-            <Link href="/admin">Dashboard</Link>{" "}
+            <Link href="/xadmin">Dashboard</Link>{" "}
           </li>
           <li>
             <Link href="/admin/add-blog">Add Blog</Link>
@@ -336,6 +395,9 @@ function AddPortfolio({ title = "Admin" }) {
           </li>
           <li>
             <Link href="/admin/portfolio-list">Portfolio List</Link>
+          </li>
+          <li className="log-out" onClick={logout}>
+            <>Log Out </>
           </li>
             </div>
             
