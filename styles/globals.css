@@ -1035,3 +1035,113 @@ img.thumb:hover {
     -webkit-text-fill-color: transparent;
   }
 } */
+
+
+
+
+/*----------------------------------------------------------------------------- side nav ----------------------------------------------------------------------------------------------- */
+.dashboard{
+  margin: 0;
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+}
+.spinner{
+  margin: 50px auto;
+}
+.side-nav{
+
+  background: #27AAD3;
+  width: 260px;
+  height: 100vh;
+box-shadow:  20px 20px 60px #bebebe,
+             -20px -20px 60px #ffffff;
+}
+.side-nav  li a {
+  color: white;
+}
+.side-nav  li{
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  border-left:2px solid red ;
+  text-align: left;
+  list-style: none;
+}
+.container-padding{
+  padding-top: 20px !important;
+  padding-left: 50px !important;
+  overflow-y: scroll;
+  height: 88vh;
+}
+.button-offcanvas{
+  display: none !important;
+}
+.offcanvas{
+  background:#27AAD3 !important ;
+}
+.offcanvas li a {
+  color: white;
+}
+.offcanvas  li{
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  border-left:2px solid red ;
+  text-align: left;
+  list-style: none;
+}
+
+@media screen and (max-width: 998px){
+  .container-padding{
+    height: 100vh;
+    padding-left: 5px !important;
+  }
+  .button-offcanvas{
+    display: block !important;
+  }
+  
+  .nav-content{
+    padding-left: 0px;
+  }
+  .dashboard{
+    grid-template-columns: 1fr;
+  }
+  .side-nav{
+    display: none;
+  }
+  .offcanvas{
+    width: 50% !important;
+
+  }
+}
+@media screen and (max-width: 768px){
+  .container-padding{
+    height: 120vh;
+  }
+  .offcanvas{
+    width: 50% !important;
+
+  }
+  .form-card{
+    padding-left: 10px !important;
+  }
+}
+.quill{
+  height: 200px;
+  margin-bottom: 100px;
+  width: 500px;
+  cursor:text;
+}
+.ql-toolbar:nth-child(1){
+  display: none;
+}
+
+/* ===========================================================================>  add products  <==============================================*/
+.form-card{
+  padding-left: 100px;
+}
+.form-control{
+  width: 500px !important;
+}

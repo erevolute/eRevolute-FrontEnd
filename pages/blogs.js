@@ -12,13 +12,10 @@ function Blogs(){
       .then(res=>res.json())
       .then(data => {
         setBlogs(data)
-        // console.log(data[17].data.description)
-        // console.log(data[17].data.img)
-        // console.log(data[17].data.name)
+
       })
     },[blogs])
-    // const aj = JSON.parse(blogs[7]?.description)
-    // console.log(blogs[7]?.description, aj)
+
    
     
  
@@ -28,7 +25,7 @@ function Blogs(){
         <h1 className="text-center mt-5 pt-5 mb-5">Blogs</h1>
       
        <div className="blog">
-        {/* <p contentEditable={false}  suppressContentEditableWarning={false} dangerouslySetInnerHTML={{__html:blogs}}></p> */}
+        
       
        {
          blogs.map(blog =>  <div key={blog._id} className="mt-5">

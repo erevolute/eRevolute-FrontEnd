@@ -17,7 +17,7 @@ function PorfolioSecond() {
   const web = "web";
   const webCatagory = portfolio
     .filter((port) => port.catagory == web)
-    .slice(0, 5);
+    .slice(0, 10);
 
   const eCommerce = "ecommerce";
   const eCommerceCatagory = portfolio
@@ -92,7 +92,7 @@ function PorfolioSecond() {
                   <img src={web.img} alt="" className="profil-picture" />
 
                   <p className="mb-0 fw-bold">
-                    {web.description.slice(0, 100)}
+                  {ReactHtmlParser(web.description.slice(0, 100))}
                   </p>
                   <h1>{web.name}</h1>
 

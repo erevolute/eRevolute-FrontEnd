@@ -1,8 +1,5 @@
 import Head from "next/head";
 import Link from "next/link";
-import "react-quill/dist/quill.snow.css";
-import Swal from "sweetalert2";
-import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   Card,
@@ -14,11 +11,13 @@ import {
   Spinner,
 } from "react-bootstrap";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 import DashboardNav from "../components/dashboard";
+import Swal from "sweetalert2";
 
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
-  loading: () =>   <Spinner
+  loading: () => <Spinner
   className="spinner"
   animation="border"
   variant="info"
@@ -61,67 +60,55 @@ const formats = [
   "video",
 ];
 
-function AddPortfolio({ title = "Admin" }) {
+function AddBlog({ title = "Add Blogs" }) {
   const [description, setDescription] = useState("");
- 
   const [isLoading, setIsLoading] = useState();
- 
 
-  //	image upload
 
-  const handleValidSubmit = async (event) => {
-    event.preventDefault();
+  const handleValidSubmit = async(event) => {
+	  event.preventDefault()
+   
     setIsLoading(true)
-    const name = event.target.portfolio.value;
-    const catagory = event.target.catagory.value;
-    const siteLink = event.target.siteLink.value;
-    const date = new Date().toLocaleDateString();
-    const img = event.target.img.value;
-    const img2 = event.target.img2.value;
-    const img3 = event.target.img3.value;
+   const title = event.target.blog.value;
+  const catagory = event.target.catagory.value
+  const  date = new Date().toLocaleDateString()
+  const img = event.target.img.value
 
-    const data = ({
-      description,
-      date,
-      name,
-      siteLink,
-      img,
-      img3,
-      img2,
-      catagory,
-    })
-    console.log(data);
+ 
+      const data = ({ description , date, title , img , catagory })
+    console.log(data)
 
-    await fetch("https://gentle-everglades-88789.herokuapp.com/add-portfolio", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
+    await fetch('https://gentle-everglades-88789.herokuapp.com/add' , {
+      method: 'POST',
+      headers:{
+          'content-type' : 'application/json'
       },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        setIsLoading(true)
-        if(result.insertedId){
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Your work has been saved',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        }
-        else(
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-          })
-        )
-      });
-    event.target.reset();
+      body: JSON.stringify(data)
+  })
+  .then(res=> res.json())
+  .then(result => {
+    setDescription("");
+    setIsLoading(false)
+    if(result.insertedId){
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+    else(
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+      })
+    )
+   
+  })
+  event.target.reset();
 
-    setDescription(" ");
   };
 
   return (
@@ -158,16 +145,16 @@ function AddPortfolio({ title = "Admin" }) {
         </div>
         <div className="nav-content">
         <DashboardNav></DashboardNav>
-    
+     
           <Container fluid={true} className="container-padding">
             <Row>
               <Col sm="12">
                 <Card className="form-card">
                   <>
-                    <h1>Add Porfolio</h1>
+                    <h1>Add Blog</h1>
                   </>
                   <div>
-                    <div className="product-adding " lg={6}>
+                    <Row className="product-adding">
                       <Col xl="7">
                       <Form
                       className="needs-validation add-product-form"
@@ -176,13 +163,13 @@ function AddPortfolio({ title = "Admin" }) {
                       <div className="form2 form-label-center">
                         <FormGroup className="form-group mb-3 row">
                           <label className="col-xl-3 col-sm-4 mb-0">
-                            Portfolio Name :
+                            Blog Name :
                             
                           </label>
                           <div className="col-xl-8 col-sm-7">
                             <input
                               className="form-control"
-                              name="portfolio"
+                              name="blog"
                               id="validationCustom01"
                               type="text"
                               required
@@ -193,7 +180,7 @@ function AddPortfolio({ title = "Admin" }) {
                         
                         <FormGroup className="form-group mb-3 row">
                           <label className="col-xl-3 col-sm-4 mb-0">
-                            Portfolio Catagory :
+                            Blog Catagory :
                           </label>
                           <div className="col-xl-8 col-sm-7">
                             <input
@@ -204,22 +191,7 @@ function AddPortfolio({ title = "Admin" }) {
                               required
                             />
                           </div>
-                         
-                        </FormGroup>
-                        <FormGroup className="form-group mb-3 row">
-                          <label className="col-xl-3 col-sm-4 mb-0">
-                            Site Link :
-                          </label>
-                          <div className="col-xl-8 col-sm-7">
-                            <input
-                              className="form-control "
-                              name="siteLink"
-                              
-                              
-                              required
-                            />
-                          </div>
-                         
+                          
                         </FormGroup>
                         <FormGroup className="form-group mb-3 row">
                           <label className="col-xl-3 col-sm-4 mb-0">
@@ -234,37 +206,7 @@ function AddPortfolio({ title = "Admin" }) {
                               required
                             />
                           </div>
-                          
-                        </FormGroup>
-                        <FormGroup className="form-group mb-3 row">
-                          <label className="col-xl-3 col-sm-4 mb-0">
-                           Image 2
-                          </label>
-                          <div className="col-xl-8 col-sm-7">
-                            <input
-                              className="form-control "
-                              name="img2"
-                              id="validationCustomUsername"
-                             
-                              required
-                            />
-                          </div>
-                          
-                        </FormGroup>
-                        <FormGroup className="form-group mb-3 row">
-                          <label className="col-xl-3 col-sm-4 mb-0">
-                           Image 3
-                          </label>
-                          <div className="col-xl-8 col-sm-7">
-                            <input
-                              className="form-control "
-                              name="img3"
-                              id="validationCustomUsername"
-                             
-                              required
-                            />
-                          </div>
-                          
+                         
                         </FormGroup>
                       </div>
                   
@@ -274,28 +216,27 @@ function AddPortfolio({ title = "Admin" }) {
                           </label>
                           <div   className="col-xl-8 col-sm-7 description-sm">
                           
-                      
                           <QuillNoSSRWrapper
                               modules={modules}
                               onChange={setDescription}
                               formats={formats}
                             />
-                        
+                       
+
                            
                           </div>
                         </FormGroup>
                       
                       <div className="offset-xl-3  offset-sm-4">
-                        <button type="submit" className="btnFillup anglebg bg-white w-50" >
+                      <button type="submit" className="btnFillup anglebg bg-white w-50" >
                          {
                            isLoading ?  <Spinner  animation="border" variant="dark" /> : "Add Portfolio"
                          }
                         </button>
-                     
                       </div>
                     </Form>
                       </Col>
-                    </div>
+                    </Row>
                   </div>
                 </Card>
               </Col>
@@ -303,11 +244,12 @@ function AddPortfolio({ title = "Admin" }) {
           </Container>
       
        
+
           <div
             className="offcanvas offcanvas-start"
            
             id="offcanvasExample"
-            aria-labelledby="offcanvasExampleLabel"
+            aria-labelledby="offcanvasExamplelabel"
           >
             <div className="offcanvas-header">
             <img
@@ -316,7 +258,6 @@ function AddPortfolio({ title = "Admin" }) {
             src="https://i.ibb.co/2nXZjsY/final.png"
             alt=""
           />
-           <button type="button" className="btn-close  text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           <hr />
          
               
@@ -346,4 +287,4 @@ function AddPortfolio({ title = "Admin" }) {
   );
 }
 
-export default AddPortfolio;
+export default AddBlog;
