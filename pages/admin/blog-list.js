@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 
 function BlogList({ title = "Blog List" }) {
   const [blogs, setBlogs] = useState([]);
@@ -29,7 +31,7 @@ function BlogList({ title = "Blog List" }) {
 
   useEffect(()=>{
     if(!user){
-      router.push('/login')
+      router.push('/xlogin')
     }
   })
   if(loading){
@@ -84,20 +86,23 @@ function BlogList({ title = "Blog List" }) {
           <li>
             <Link href="/xadmin">Dashboard</Link>{" "}
           </li>
-          <li>
-            <Link href="/admin/add-blog">Add Blog</Link>
-          </li>
-          <li>
-            <Link href="/admin/blog-list">Blog List</Link>
-          </li>
-          <li>
-            <Link href="/admin/add-portfolio">Add Portfolio</Link>
-          </li>
-          <li>
-            <Link href="/admin/portfolio-list">Portfolio List</Link>
-          </li>
+   
+          <label htmlFor="touch2"><span  className="span">Blogs</span></label>               
+            <input type="checkbox" id="touch2" />
+            <ul className="slide2">
+              <li>  <Link href="/admin/add-blog">Add Blog</Link> </li> 
+              <li>    <Link href="/admin/blog-list">Blog List</Link></li>
+            </ul>
+
+          <label htmlFor="touch"><span className="span">Portfolio</span></label>               
+            <input type="checkbox" id="touch" />
+            <ul className="drop">
+              <li> <Link href="/admin/add-portfolio">Add Portfolio</Link></li> 
+              <li><Link href="/admin/portfolio-list">Portfolio List</Link></li>
+            </ul>
+
           <li className="log-out" onClick={logout}>
-            <>Log Out </>
+            Log Out  <FontAwesomeIcon  className="ps-2" icon={faSignOut} /> 
           </li>
         </div>
         <div className="nav-content">
@@ -175,18 +180,31 @@ function BlogList({ title = "Blog List" }) {
               <li>
                 <Link href="/xadmin">Dashboard</Link>{" "}
               </li>
-              <li>
-                <Link href="/admin/add-blog">Add Blog</Link>
-              </li>
-              <li>
-                <Link href="/admin/blog-list">Blog List</Link>
-              </li>
-              <li>
-                <Link href="/admin/add-portfolio">Add Portfolio</Link>
-              </li>
-              <li>
-                <Link href="/admin/portfolio-list">Portfolio List</Link>
-              </li>
+              <li onClick={() => handleDropdownBlog(!dropdownBlog)}>Blog <small>▼</small></li>
+              {dropdownBlog && (
+                <ul>
+                  {" "}
+                  <li>
+                    <Link href="/admin/add-blog">Add Blog</Link>
+                  </li>
+                  <li>
+                    <Link href="/admin/blog-list">Blog List</Link>
+                  </li>
+                </ul>
+              )}
+
+              <li onClick={() => handleDropdown(!dropdown)}>Portfolio <small>▼</small></li>
+              {dropdown && (
+                <ul>
+                  {" "}
+                  <li>
+                    <Link href="/admin/add-portfolio">Add Portfolio</Link>
+                  </li>
+                  <li>
+                    <Link href="/admin/portfolio-list">Portfolio List </Link>
+                  </li>
+                </ul>
+              )}
               <li className="log-out" onClick={logout}>
             <>Log Out </>
           </li>

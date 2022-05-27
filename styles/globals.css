@@ -1048,6 +1048,9 @@ img.thumb:hover {
 .spinner{
   margin: 50px auto;
 }
+.navbar2{
+  padding: 34px !important;
+}
 .side-nav{
 
   background: #27AAD3;
@@ -1060,14 +1063,70 @@ box-shadow:  20px 20px 60px #bebebe,
   color: white;
 }
 .side-nav  li{
-  margin-top: 10px;
-  padding: 10px;
-  font-size: 20px;
+  margin-top: 20px;
+  padding-left: 20px;
+  font-size: 18px;
   font-weight: 600;
-  border-left:2px solid red ;
+ 
   text-align: left;
   list-style: none;
 }
+
+
+.span {
+  color : white !important;
+  cursor : pointer;
+  display: block;
+  font-size: 18px;
+  padding-left: 20px;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.span::after {
+  float: right;
+  right: 10%;
+  padding-left: 7px;
+  padding-top: 7px;
+  content: "🢓";
+}
+
+.drop {
+  clear:both;
+  width:100%;
+  height:0px;
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  transition: height .4s ease;
+}
+
+.drop li {padding-left: 10px; margin: 7px;   font-size: 16px;}
+
+#touch {position: absolute; opacity: 0; height: 0px;}    
+
+#touch:checked + .drop {height: 70px;} 
+
+
+
+.slide2 {
+  clear:both;
+  width:100%;
+  height:0px;
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  transition: height .4s ease;
+}
+
+.slide2 li { margin: 7px;   font-size: 16px;}
+
+#touch2 {position: absolute; opacity: 0; height: 0px;}    
+
+#touch2:checked + .slide2 {height: 70px;} 
+
+
+
 .container-padding{
   padding-top: 20px !important;
   padding-left: 50px !important;
@@ -1084,13 +1143,18 @@ box-shadow:  20px 20px 60px #bebebe,
   color: white;
 }
 .offcanvas  li{
-  margin-top: 10px;
-  padding: 10px;
+  color: white;
+  margin-top: 8px;
   font-size: 20px;
   font-weight: 600;
-  border-left:2px solid red ;
   text-align: left;
   list-style: none;
+  
+}
+
+small{
+  font-size: 10px !important;
+  transform: rotate(40deg);
 }
 
 @media screen and (max-width: 998px){
@@ -1112,8 +1176,12 @@ box-shadow:  20px 20px 60px #bebebe,
     display: none;
   }
   .offcanvas{
+
     width: 50% !important;
 
+  }
+  .offcanvas  li{
+    font-size: 20px;
   }
 }
 @media screen and (max-width: 768px){
@@ -1121,13 +1189,20 @@ box-shadow:  20px 20px 60px #bebebe,
     height: 120vh;
   }
   .offcanvas{
+    transition: linear 2s;
+ 
     width: 50% !important;
+  
 
   }
   .form-card{
     padding-left: 10px !important;
   }
+  .offcanvas  li{
+    font-size: 14px;
+  }
 }
+
 .quill{
   height: 200px;
   margin-bottom: 100px;
@@ -1149,11 +1224,31 @@ box-shadow:  20px 20px 60px #bebebe,
 
 /*==================================================================================== login ================================================================= */
 .log-out{
-  width: 40%;
-  background: rgb(61, 138, 232);
+  width: 50%;
+  color: white;
   cursor: pointer;
 }
 .login{
+  height: 70vh;
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+.login-form{
+  background: #0e9aff;
+  border-radius: 20px;
+  padding: 6%;
+}
+.login-form input{
+  border: 0;
+  padding: 5px;
+  border-radius: 10px;
+}
+#login{
+  border: 0;
+  width: 100%;
+  color: white;
+  background: #65d6f8;
+  padding: 5px;
+  border-radius: 10px;
 }

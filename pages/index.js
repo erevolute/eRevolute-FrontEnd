@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { Card, Carousel, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import Header from "./header";
 import Blogs from "./home/blog";
 import Contact from "./home/contact";
@@ -15,7 +14,9 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
-
+import auth from "../firebase.init"
+import { useAuthState } from "react-firebase-hooks/auth";
+import Carousels from "./components/carousel";
 
 export default function Home({ title = "Home" }) {
 
@@ -27,85 +28,14 @@ export default function Home({ title = "Home" }) {
           <title>{title}</title>
         </Head>
       <Header></Header>
-
-      <Carousel fade className="banner pt-5">
-        <Carousel.Item>
-        <div className="banner-container">
-          <div className="banner-content">
-            <p
-              
-              className="text-white animate__animated animate__fadeInRight"
-            >
-              ● We Develop World-Class Smartphone Applications
-            </p>
-            <h1 className="text-white banner-title animate__animated animate__fadeInLeft">
-              AWESOME <br /> MOBILE APP
-            </h1>
-          </div>
-          <div className="banner-image animate__animated animate__fadeInRight">
-            <img
-              width={500}
-              height={600}
-              src="https://i.ibb.co/Q8QSHJ3/imgbin-blue-aqua-turquoise-pattern-png.png"
-              alt=""
-            />
-          </div>
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="banner-container">
-          <div className="banner-content">
-            <p
-              
-              className="text-white animate__animated animate__fadeInRight"
-            >
-             ● Build Websites for Your Business that stands out
-            </p>
-            <h1 className="text-white banner-title animate__animated animate__fadeInLeft">
-            RESPONSIVE <br /> WEBSITES
-            </h1>
-          </div>
-          <div className="banner-image animate__animated animate__backInRight animate__slow	5s">
-            <img
-              width={500}
-              height={600}
-              src="https://i.ibb.co/mC8b4T8/imgbin-mobile-phone-case-mobile-phone-accessories-red-pink-magenta-png.png"
-              alt=""
-            />
-          </div>
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
-        <div className="banner-container">
-          <div className="banner-content">
-            <p
-             
-              className="text-white animate__animated animate__fadeInRight"
-            >
-              ● Wait No More Create your Online Store Now
-            </p>
-            <h1 className="text-white banner-title animate__animated animate__fadeInLeft">
-            ECOMMERCE <br /> WEBSITES
-            </h1>
-          </div>
-          <div className="banner-image animate__animated animate__rotateInDownRight animate__slow	2s">
-            <img
-              width={500}
-              height={600}
-              src="https://i.ibb.co/5FddSXX/imgbin-mobile-phone-case-mobile-phone-gadget-communication-device-mobile-phone-accessories-png.png"
-              alt=""
-            />
-          </div>
-          </div>
-        </Carousel.Item>
-      </Carousel>
-  
+      <Carousels></Carousels>
         <div className="wave pt-5">
         </div>
         <br />
         <br />
        
       <Products></Products>
+     
       <Countup></Countup>
       <PorfolioSecond></PorfolioSecond>
       <div className="ms-5 fs-3" >
@@ -116,6 +46,7 @@ export default function Home({ title = "Home" }) {
       <Blogs></Blogs>
       <Subcribe></Subcribe>
       <Contact></Contact>
+
       <GetInTouch></GetInTouch>
       <Footer></Footer>
       
