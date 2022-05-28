@@ -98,7 +98,7 @@ function AddBlog({title = "Update Blogs"}){
             setIsLoading(false)
             setBlogs(data)
         })
-    },[description])
+    },[])
     const findTitle = blogs.find(port => port._id == id)
 
     useEffect(()=>{
@@ -124,7 +124,7 @@ function AddBlog({title = "Update Blogs"}){
       const  date = new Date().toLocaleDateString()
       const img = event.target.img.value
       const metaKeywords = event.target.keywords.value ;
-      const metaDescription = event.target.description.value ;
+      const metaDescription = event.target.descriptions.value ;
     
         const data = {
           description,
@@ -135,7 +135,8 @@ function AddBlog({title = "Update Blogs"}){
           metaKeywords,
           metaDescription
         };
-      
+
+        console.log(data)
     
         await fetch(`https://gentle-everglades-88789.herokuapp.com/blogs/${id}`, {
           method: "PUT",
@@ -262,7 +263,7 @@ function AddBlog({title = "Update Blogs"}){
                           <div className="col-xl-8 col-sm-7">
                             <input
                               className="form-control"
-                              name="description"
+                              name="descriptions"
                               id="validationCustom01"
                               type="text"
                               required
@@ -325,7 +326,7 @@ function AddBlog({title = "Update Blogs"}){
                             
                             <QuillNoSSRWrapper
                                 modules={modules}
-                                onChange={setDescription}
+                                onBlur={setDescription}
                                 formats={formats}
                               />
                              

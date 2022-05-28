@@ -104,7 +104,7 @@ function AddBlog({ title = "Add Blogs" }) {
   const  date = new Date().toLocaleDateString()
   const img = event.target.img.value;
   const metaKeywords = event.target.keywords.value ;
-  const metaDescription = event.target.description.value ;
+  const metaDescription = event.target.descriptions.value ;
 
  
       const data = ({ description , date, title , img , catagory , metaDescription , metaKeywords })
@@ -228,7 +228,7 @@ function AddBlog({ title = "Add Blogs" }) {
                           <div className="col-xl-8 col-sm-7">
                             <input
                               className="form-control"
-                              name="description"
+                              name="descriptions"
                               id="validationCustom01"
                               type="text"
                               required
@@ -294,7 +294,7 @@ function AddBlog({ title = "Add Blogs" }) {
                           
                           <QuillNoSSRWrapper
                               modules={modules}
-                              onChange={setDescription}
+                              onBlur={setDescription}
                               formats={formats}
                             />
                        

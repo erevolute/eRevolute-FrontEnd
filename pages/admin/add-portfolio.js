@@ -107,7 +107,7 @@ function AddPortfolio({ title = "Admin" }) {
     const img2 = event.target.img2.value;
     const img3 = event.target.img3.value;
     const metaKeywords = event.target.keywords.value ;
-    const metaDescription = event.target.description.value ;
+    const metaDescription = event.target.descriptions.value ;
 
     const data = ({
       description,
@@ -237,7 +237,7 @@ function AddPortfolio({ title = "Admin" }) {
                           <div className="col-xl-8 col-sm-7">
                             <input
                               className="form-control"
-                              name="description"
+                              name="descriptions"
                               id="validationCustom01"
                               type="text"
                               required
