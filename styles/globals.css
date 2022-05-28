@@ -1189,6 +1189,7 @@ small{
 @media screen and (max-width: 768px){
   .container-padding{
     height: 120vh;
+   
   }
   .offcanvas{
     transition: linear 2s;
@@ -1204,15 +1205,10 @@ small{
     font-size: 14px;
   }
 }
-
-.quill{
-  height: 200px;
-  margin-bottom: 100px;
-  width: 500px;
-  cursor:text;
-}
-.ql-toolbar:nth-child(1){
-  display: none;
+.tox-tinymce-aux{
+     position: absolute !important;
+    right: 0 !important;
+    height: 0px !important;
 }
 
 /* ===========================================================================>  add products  <==============================================*/
@@ -1222,7 +1218,7 @@ small{
 .form-control{
   width: 500px !important;
 }
-.tox {
+.tox-tinymce {
   width: 500px !important;
   height: 250px !important;
   border: 2px solid lightgray !important;
@@ -1231,7 +1227,7 @@ small{
   .form-control{
     width: 450px !important;
   }
-  .tox {
+  .tox-tinymce {
     width: 400px !important;
     height: 250px !important;
     border: 2px solid lightgray !important;

@@ -331,8 +331,8 @@ function AddBlog({ title = "Add Blogs" }) {
                           "wordcount",
                         ],
                         toolbar:
+                          "insertfile image media pageembed template link anchor codesample | bold italic forecolor | alignleft aligncenter " +
                           "undo redo | blocks | " +
-                          "bold italic forecolor | alignleft aligncenter | insertfile image media pageembed template link anchor codesample " +
                           "alignright alignjustify | bullist numlist outdent indent | " +
                           "removeformat | help",
                         image_caption: true,
