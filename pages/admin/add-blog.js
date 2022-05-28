@@ -12,63 +12,64 @@ import {
 } from "react-bootstrap";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DashboardNav from "../components/dashboard";
 import Swal from "sweetalert2";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { Editor } from "@tinymce/tinymce-react";
 
+// const QuillNoSSRWrapper = dynamic(import("react-quill"), {
+//   ssr: false,
+//   loading: () => <Spinner
+//   className="spinner"
+//   animation="border"
+//   variant="info"
+// />,
+// });
 
-const QuillNoSSRWrapper = dynamic(import("react-quill"), {
-  ssr: false,
-  loading: () => <Spinner
-  className="spinner"
-  animation="border"
-  variant="info"
-/>,
-});
-
-const modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
-    ],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-  clipboard: {
-    // toggle to add extra line breaks when pasting HTML:
-    matchVisual: false,
-  },
-};
-const formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "video",
-];
+// const modules = {
+//   toolbar: [
+//     [{ header: "1" }, { header: "2" }, { font: [] }],
+//     [{ size: [] }],
+//     ["bold", "italic", "underline", "strike", "blockquote"],
+//     [
+//       { list: "ordered" },
+//       { list: "bullet" },
+//       { indent: "-1" },
+//       { indent: "+1" },
+//     ],
+//     ["link", "image", "video"],
+//     ["clean"],
+//   ],
+//   clipboard: {
+//     // toggle to add extra line breaks when pasting HTML:
+//     matchVisual: false,
+//   },
+// };
+// const formats = [
+//   "header",
+//   "font",
+//   "size",
+//   "bold",
+//   "italic",
+//   "underline",
+//   "strike",
+//   "blockquote",
+//   "list",
+//   "bullet",
+//   "indent",
+//   "link",
+//   "image",
+//   "video",
+// ];
 
 function AddBlog({ title = "Add Blogs" }) {
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState();
+  const editorRef = useRef(null);
   const router = useRouter();
   const [user , loading , error] = useAuthState(auth);
   const logout = () => {
@@ -82,6 +83,14 @@ function AddBlog({ title = "Add Blogs" }) {
   const handleDropdown = (event) => {
     setDropdown(event);
   };
+  
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+      setDescription(editorRef.current.getContent());
+    }
+  };
+  console.log('ahad' , description)
 
   useEffect(()=>{
     if(!user){
@@ -292,11 +301,47 @@ function AddBlog({ title = "Add Blogs" }) {
                           </label>
                           <div   className="col-xl-8 col-sm-7 description-sm">
                           
-                          <QuillNoSSRWrapper
-                              modules={modules}
-                              onBlur={setDescription}
-                              formats={formats}
-                            />
+                          <Editor
+                          onBlur={log}
+                          
+                      apiKey="xmj2nso1m4q3nawunaj3v7i36tumphzicdcukaq3ks2zpnha"
+                      onInit={(evt, editor) => (editorRef.current = editor)}
+                      initialValue=""
+                      init={{
+                        height: 500,
+                        menubar: false,
+                        plugins: [
+                          "advlist",
+                          "autolink",
+                          "lists",
+                          "link",
+                          "image",
+                          "charmap",
+                          "preview",
+                          "anchor",
+                          "searchreplace",
+                          "visualblocks",
+                          "code",
+                          "fullscreen",
+                          "insertdatetime",
+                          "media",
+                          "table",
+                          "code",
+                          "help",
+                          "wordcount",
+                        ],
+                        toolbar:
+                          "undo redo | blocks | " +
+                          "bold italic forecolor | alignleft aligncenter | insertfile image media pageembed template link anchor codesample " +
+                          "alignright alignjustify | bullist numlist outdent indent | " +
+                          "removeformat | help",
+                        image_caption: true,
+                        image_advtab: true,
+                        content_style:
+                          "body { font-family:Helvetica,Arial,sans-serif; font-size:14px ;  }",
+                          relative_urls: true,
+                      }}
+                    />
                        
 
                            

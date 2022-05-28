@@ -11,7 +11,7 @@ function Blogs() {
     .then(data => setBlogs(data.slice(0,3)))
   },[])
 
-  const latestBlogsFind = blogs.slice(-6);
+  const latestBlogsFind = blogs.slice(-3);
   const latestBlogs = latestBlogsFind.reverse();
 
 

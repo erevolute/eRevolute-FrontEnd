@@ -1,17 +1,18 @@
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
-import { faArrowDownShortWide } from "@fortawesome/free-solid-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signOut } from "firebase/auth";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import DashboardNav from "./components/dashboard";
 
 const Admin = ({ title = "Admin" }) => {
+
   const router = useRouter();
   const [dropdown, setDropdown] = useState(false);
   const [dropdownBlog, setDropdownBlog] = useState(false);
@@ -26,7 +27,6 @@ const Admin = ({ title = "Admin" }) => {
   const handleDropdownBlog = (event) => {
     setDropdownBlog(event);
   };
- 
 
   useEffect(() => {
     if (!user) {
@@ -101,7 +101,10 @@ const Admin = ({ title = "Admin" }) => {
                   <>
                     <h1>Dashboard </h1>
                   </>
-                  <div></div>
+                  <div>
+                  
+               
+                  </div>
                 </Card>
               </Col>
             </Row>
@@ -125,7 +128,9 @@ const Admin = ({ title = "Admin" }) => {
               <li>
                 <Link href="/xadmin">Dashboard</Link>{" "}
               </li>
-              <li onClick={() => handleDropdownBlog(!dropdownBlog)}>Blog<small>▼</small></li>
+              <li onClick={() => handleDropdownBlog(!dropdownBlog)}>
+                Blog<small>▼</small>
+              </li>
               {dropdownBlog && (
                 <ul>
                   {" "}
@@ -138,7 +143,9 @@ const Admin = ({ title = "Admin" }) => {
                 </ul>
               )}
 
-              <li onClick={() => handleDropdown(!dropdown)}>Portfolio<small>▼</small></li>
+              <li onClick={() => handleDropdown(!dropdown)}>
+                Portfolio<small>▼</small>
+              </li>
               {dropdown && (
                 <ul>
                   {" "}
