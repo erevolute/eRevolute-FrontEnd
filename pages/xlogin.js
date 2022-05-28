@@ -48,7 +48,7 @@ function Login({ title = "Login" }) {
   };
 
   if (loginloading) {
-    return <div className="bg-dark p-5">loading sdfsdfgdfg</div>;
+    return  <Spinner className="spinner" animation="border" variant="info" /> ;
   }
 
   return (
@@ -59,9 +59,9 @@ function Login({ title = "Login" }) {
         <div className="login">
           <div className="login-form">
             {checked ? (
-              <div>
+                <div>
                 <h1>Register</h1>
-
+  
                 <form onSubmit={handleSubmit}>
                   <input type="email" placeholder="Email" onBlur={handleEmail} />
                   <br />
@@ -71,31 +71,32 @@ function Login({ title = "Login" }) {
                   <button id="login" type="submit">Register</button>
                 </form>
               </div>
+          
             ) : (
               <div>
-                <h1>Login</h1>
-                <form onSubmit={handleLogin}>
-                  <input type="email" placeholder="Email" onBlur={handleEmail} />
-                  <br />
-                  <br />
-                  <input type="password" placeholder="Password" onBlur={handlePassword} />
-                  <br /> <br />
-                  <button id="login" type="submit">login</button>
-                </form>
-              </div>
+            <h1>Login</h1>
+            <form onSubmit={handleLogin}>
+              <input type="email" placeholder="Email" onBlur={handleEmail} />
+              <br />
+              <br />
+              <input type="password" placeholder="Password" onBlur={handlePassword} />
+              <br /> <br />
+              <button id="login" type="submit">login</button>
+            </form>
+          </div>
+              
             )}
             
             <br />
-            <p>
-
+            {/* <p>
               <input
                 onChange={() => setCheckbox(!checked)}
                 type="checkbox"
                 name=""
                 id=""
               />{" "}
-              Already register ?{" "}
-            </p>
+              Didnt Register ?{" "}
+            </p> */}
           </div>
         </div>
       )}

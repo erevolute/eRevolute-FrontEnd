@@ -74,7 +74,14 @@ function AddBlog({ title = "Add Blogs" }) {
   const logout = () => {
     signOut(auth);
   };
- 
+  const [dropdownBlog, setDropdownBlog] = useState(false);
+  const handleDropdownBlog = (event) => {
+    setDropdownBlog(event);
+  };
+  const [dropdown, setDropdown] = useState(false);
+  const handleDropdown = (event) => {
+    setDropdown(event);
+  };
 
   useEffect(()=>{
     if(!user){
@@ -299,7 +306,7 @@ function AddBlog({ title = "Add Blogs" }) {
                       <div className="offset-xl-3  offset-sm-4">
                       <button type="submit" className="btnFillup anglebg bg-white w-50" >
                          {
-                           isLoading ?  <Spinner  animation="border" variant="dark" /> : "Add Portfolio"
+                           isLoading ?  <Spinner  animation="border" variant="dark" /> : "Add Blogs"
                          }
                         </button>
                       </div>

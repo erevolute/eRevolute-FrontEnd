@@ -36,7 +36,7 @@ function BlogsDetails({ title = "" }) {
       <div className="blog-details container">
         <img src={blogs.img} alt="" />
         <div>
-        
+          
         <h1>{blogs.title}</h1>
         <p>Posted : {blogs.date}</p>
         </div>

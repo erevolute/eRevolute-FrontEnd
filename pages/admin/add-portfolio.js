@@ -75,8 +75,14 @@ function AddPortfolio({ title = "Admin" }) {
   const logout = () => {
     signOut(auth);
   };
- 
-
+  const [dropdownBlog, setDropdownBlog] = useState(false);
+  const handleDropdownBlog = (event) => {
+    setDropdownBlog(event);
+  };
+  const [dropdown, setDropdown] = useState(false);
+  const handleDropdown = (event) => {
+    setDropdown(event);
+  };
   useEffect(()=>{
     if(!user){
       router.push('/xlogin')

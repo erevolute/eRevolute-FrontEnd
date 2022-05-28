@@ -22,22 +22,27 @@ function BlogList({ title = "Blog List" }) {
         setError(false);
       });
   }, []);
-  const router = useRouter()
-  const [user , loading ] = useAuthState(auth);
+  const router = useRouter();
+  const [user, loading] = useAuthState(auth);
   const logout = () => {
     signOut(auth);
   };
- 
+  const [dropdownBlog, setDropdownBlog] = useState(false);
+  const handleDropdownBlog = (event) => {
+    setDropdownBlog(event);
+  };
+  const [dropdown, setDropdown] = useState(false);
+  const handleDropdown = (event) => {
+    setDropdown(event);
+  };
 
-  useEffect(()=>{
-    if(!user){
-      router.push('/xlogin')
+  useEffect(() => {
+    if (!user) {
+      router.push("/xlogin");
     }
-  })
-  if(loading){
-    return <div>
-      loading
-    </div>
+  });
+  if (loading) {
+    return <div>loading</div>;
   }
 
   const handleDelete = (id) => {
@@ -86,23 +91,38 @@ function BlogList({ title = "Blog List" }) {
           <li>
             <Link href="/xadmin">Dashboard</Link>{" "}
           </li>
-   
-          <label htmlFor="touch2"><span  className="span">Blogs</span></label>               
-            <input type="checkbox" id="touch2" />
-            <ul className="slide2">
-              <li>  <Link href="/admin/add-blog">Add Blog</Link> </li> 
-              <li>    <Link href="/admin/blog-list">Blog List</Link></li>
-            </ul>
 
-          <label htmlFor="touch"><span className="span">Portfolio</span></label>               
-            <input type="checkbox" id="touch" />
-            <ul className="drop">
-              <li> <Link href="/admin/add-portfolio">Add Portfolio</Link></li> 
-              <li><Link href="/admin/portfolio-list">Portfolio List</Link></li>
-            </ul>
+          <label htmlFor="touch2">
+            <span className="span">Blogs</span>
+          </label>
+          <input type="checkbox" id="touch2" />
+          <ul className="slide2">
+            <li>
+              {" "}
+              <Link href="/admin/add-blog">Add Blog</Link>{" "}
+            </li>
+            <li>
+              {" "}
+              <Link href="/admin/blog-list">Blog List</Link>
+            </li>
+          </ul>
+
+          <label htmlFor="touch">
+            <span className="span">Portfolio</span>
+          </label>
+          <input type="checkbox" id="touch" />
+          <ul className="drop">
+            <li>
+              {" "}
+              <Link href="/admin/add-portfolio">Add Portfolio</Link>
+            </li>
+            <li>
+              <Link href="/admin/portfolio-list">Portfolio List</Link>
+            </li>
+          </ul>
 
           <li className="log-out" onClick={logout}>
-            Log Out  <FontAwesomeIcon  className="ps-2" icon={faSignOut} /> 
+            Log Out <FontAwesomeIcon className="ps-2" icon={faSignOut} />
           </li>
         </div>
         <div className="nav-content">
@@ -113,7 +133,11 @@ function BlogList({ title = "Blog List" }) {
               <Col sm="12">
                 <Card>
                   {error ? (
-                    <Spinner className="spinner" animation="border" variant="info" />
+                    <Spinner
+                      className="spinner"
+                      animation="border"
+                      variant="info"
+                    />
                   ) : (
                     <>
                       <>
@@ -137,7 +161,13 @@ function BlogList({ title = "Blog List" }) {
                                   <td>{blog.date}</td>
                                   <td>
                                     <button className="border-0 btn bg-info p-2 m-2 text-white fw-bold">
-                                      <Link href={`/update-blog/${blog._id}`}>
+                                      <Link
+                                        href={{
+                                          pathname: "/admin/update-blog/[id]",
+
+                                          query: { id: blog._id },
+                                        }}
+                                      >
                                         Edit
                                       </Link>
                                     </button>
@@ -180,7 +210,9 @@ function BlogList({ title = "Blog List" }) {
               <li>
                 <Link href="/xadmin">Dashboard</Link>{" "}
               </li>
-              <li onClick={() => handleDropdownBlog(!dropdownBlog)}>Blog <small>▼</small></li>
+              <li onClick={() => handleDropdownBlog(!dropdownBlog)}>
+                Blog <small>▼</small>
+              </li>
               {dropdownBlog && (
                 <ul>
                   {" "}
@@ -193,7 +225,9 @@ function BlogList({ title = "Blog List" }) {
                 </ul>
               )}
 
-              <li onClick={() => handleDropdown(!dropdown)}>Portfolio <small>▼</small></li>
+              <li onClick={() => handleDropdown(!dropdown)}>
+                Portfolio <small>▼</small>
+              </li>
               {dropdown && (
                 <ul>
                   {" "}
@@ -206,8 +240,8 @@ function BlogList({ title = "Blog List" }) {
                 </ul>
               )}
               <li className="log-out" onClick={logout}>
-            <>Log Out </>
-          </li>
+                <>Log Out </>
+              </li>
             </div>
           </div>
         </div>

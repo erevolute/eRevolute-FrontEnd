@@ -30,7 +30,15 @@ function PortfolioList({ title = "Admin" }) {
   const logout = () => {
     signOut(auth);
   };
- 
+  const [dropdown, setDropdown] = useState(false);
+  const handleDropdown = (event) => {
+    setDropdown(event);
+  };
+
+  const [dropdownBlog, setDropdownBlog] = useState(false);
+  const handleDropdownBlog = (event) => {
+    setDropdownBlog(event);
+  };
 
   useEffect(()=>{
     if(!user){
