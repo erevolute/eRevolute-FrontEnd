@@ -1131,7 +1131,7 @@ box-shadow:  20px 20px 60px #bebebe,
   padding-top: 20px !important;
   padding-left: 50px !important;
   overflow-y: scroll;
-  height: 88vh;
+  height: 100vh;
 }
 .button-offcanvas{
   display: none !important;
