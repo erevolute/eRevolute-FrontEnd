@@ -20,55 +20,12 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { Editor } from "@tinymce/tinymce-react";
 
-const QuillNoSSRWrapper = dynamic(import("react-quill"), {
-  ssr: false,
-  loading: () =>   <Spinner
-  className="spinner"
-  animation="border"
-  variant="info"
-/>,
-});
-
-const modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
-    ],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-  clipboard: {
-    // toggle to add extra line breaks when pasting HTML:
-    matchVisual: false,
-  },
-};
-const formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "video",
-];
 
 function AddPortfolio({ title = "Admin" }) {
   const [description, setDescription] = useState("");
- 
+  const editorRef = useRef(null);
   const [isLoading, setIsLoading] = useState();
   const router = useRouter()
   const [user , loading , error] = useAuthState(auth);
@@ -78,6 +35,12 @@ function AddPortfolio({ title = "Admin" }) {
   const [dropdownBlog, setDropdownBlog] = useState(false);
   const handleDropdownBlog = (event) => {
     setDropdownBlog(event);
+  };
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+      setDescription(editorRef.current.getContent());
+    }
   };
   const [dropdown, setDropdown] = useState(false);
   const handleDropdown = (event) => {
@@ -345,17 +308,53 @@ function AddPortfolio({ title = "Admin" }) {
                           </label>
                           <div   className="col-xl-8 col-sm-7 description-sm">
                           
-                      
-                          <QuillNoSSRWrapper
-                              modules={modules}
-                              onChange={setDescription}
-                              formats={formats}
-                            />
+                          <Editor
+                          onBlur={log}
+                          
+                      apiKey="xmj2nso1m4q3nawunaj3v7i36tumphzicdcukaq3ks2zpnha"
+                      onInit={(evt, editor) => (editorRef.current = editor)}
+                      initialValue=""
+                      init={{
+                        height: 500,
+                        menubar: false,
+                        plugins: [
+                          "advlist",
+                          "autolink",
+                          "lists",
+                          "link",
+                          "image",
+                          "charmap",
+                          "preview",
+                          "anchor",
+                          "searchreplace",
+                          "visualblocks",
+                          "code",
+                          "fullscreen",
+                          "insertdatetime",
+                          "media",
+                          "table",
+                          "code",
+                          "help",
+                          "wordcount",
+                        ],
+                        toolbar:
+                          "insertfile image media pageembed template link anchor codesample | bold italic forecolor | alignleft aligncenter " +
+                          "undo redo | blocks | " +
+                          "alignright alignjustify | bullist numlist outdent indent | " +
+                          "removeformat | help",
+                        image_caption: true,
+                        image_advtab: true,
+                        content_style:
+                          "body { font-family:Helvetica,Arial,sans-serif; font-size:14px ;  }",
+                          relative_urls: true,
+                      }}
+                    />
+                     
                         
                            
                           </div>
                         </FormGroup>
-                      
+                        <br />
                       <div className="offset-xl-3  offset-sm-4">
                         <button type="submit" className="btnFillup anglebg bg-white w-50" >
                          {

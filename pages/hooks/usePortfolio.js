@@ -5,9 +5,14 @@ function usePortfolio(){
     useEffect(() => {
       fetch("https://gentle-everglades-88789.herokuapp.com/portfolio")
         .then((res) => res.json())
-        .then((data) => setPortfolio(data));
-    }, []);
-
+        .then((data) =>{
+          setTimeout(() => {
+            setPortfolio(data)
+          }, 1000);
+        });
+      
+    }, [3]);
+    
     return [portfolio]
 }
 export default usePortfolio;

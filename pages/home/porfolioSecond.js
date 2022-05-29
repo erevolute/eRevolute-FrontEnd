@@ -8,7 +8,7 @@ import ReactHtmlParser from 'react-html-parser';
 function PorfolioSecond() {
  
   const [portfolio] = usePortfolio([])
-
+console.log(portfolio)
   //  latest portfolio
   const latestPorfolioFind = portfolio.slice(-6);
   const latestPortfolio = latestPorfolioFind.reverse();

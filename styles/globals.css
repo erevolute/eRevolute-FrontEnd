@@ -1161,7 +1161,7 @@ small{
 @media screen and (max-width: 998px){
   
   .container-padding{
-    height: 100vh;
+    height: 120vh;
     padding-left: 5px !important;
   }
   .button-offcanvas{
@@ -1193,10 +1193,7 @@ small{
   }
   .offcanvas{
     transition: linear 2s;
- 
     width: 50% !important;
-  
-
   }
   .form-card{
     padding-left: 10px !important;
