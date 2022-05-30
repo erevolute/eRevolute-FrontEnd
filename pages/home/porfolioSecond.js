@@ -45,18 +45,18 @@ console.log(portfolio)
                     // width="200px"
                     style={{ borderRadius: "20px" }}
                     // height="300px"
-                    src={latest.img}
+                    src={`data:image/png;base64,${latest?.img}`}
                     alt=""
                   />
                 </div>
 
                 <div className="card-back">
-                  <img src={latest.img} alt="" className="profil-picture" />
+                  <img  src={`data:image/png;base64,${latest?.img}`} alt="" className="profil-picture" />
 
                   <p className="mb-0 fw-bold">
-                    {ReactHtmlParser(latest.description.slice(0, 100))}
+                    {ReactHtmlParser(latest?.description?.slice(0, 100))}
                   </p>
-                  <h1>{latest.name}</h1>
+                  <h1>{latest?.name}</h1>
 
                   <button className="btnFillup anglebg ps-3 pe-3">
                     <Link
@@ -83,18 +83,18 @@ console.log(portfolio)
                     // width="200px"
                     style={{ borderRadius: "20px" }}
                     // height="300px"
-                    src={web.img}
+                    src={`data:image/png;base64,${web?.img}`}
                     alt=""
                   />
                 </div>
 
                 <div className="card-back">
-                  <img src={web.img} alt="" className="profil-picture" />
+                  <img  src={`data:image/png;base64,${web?.img}`} alt="" className="profil-picture" />
 
                   <p className="mb-0 fw-bold">
-                  {ReactHtmlParser(web.description.slice(0, 100))}
+                  {ReactHtmlParser(web?.description?.slice(0, 100))}
                   </p>
-                  <h1>{web.name}</h1>
+                  <h1>{web?.name}</h1>
 
                   <button className="btnFillup anglebg ps-3 pe-3">
                     <Link 
@@ -121,18 +121,18 @@ console.log(portfolio)
                     // width="200px"
                     style={{ borderRadius: "20px" }}
                     // height="300px"
-                    src={ecommerce.img}
+                    src={`data:image/png;base64,${ecommerce?.img}`}
                     alt=""
                   />
                 </div>
 
                 <div className="card-back">
-                  <img src={ecommerce.img} alt="" className="profil-picture" />
+                  <img src={`data:image/png;base64,${ecommerce?.img}`} alt="" className="profil-picture" />
 
                   <p className="mb-0 fw-bold">
-                    {ecommerce.description.slice(0, 100)}
+                    {ecommerce?.description?.slice(0, 100)}
                   </p>
-                  <h1>{ecommerce.name}</h1>
+                  <h1>{ecommerce?.name}</h1>  
 
                   <button className="btnFillup anglebg ps-3 pe-3">
                     <Link

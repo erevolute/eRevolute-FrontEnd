@@ -92,7 +92,7 @@ function AddBlog({title = "Update Blogs"}){
     };
     useEffect(()=>{
         setIsLoading(true)
-        fetch('https://gentle-everglades-88789.herokuapp.com/blogs')
+        fetch('http://localhost:5000/blogs')
         .then(res => res.json())
         .then(data => {
             setIsLoading(false)
@@ -108,9 +108,9 @@ function AddBlog({title = "Update Blogs"}){
     })
   
     if(loading){
-      return <div>
-        loading
-      </div>
+      return <div className="spin">
+      <Spinner className="spinner" animation="border" variant="info" />
+    </div>
     }
 
  
@@ -138,7 +138,7 @@ function AddBlog({title = "Update Blogs"}){
 
         console.log(data)
     
-        await fetch(`https://gentle-everglades-88789.herokuapp.com/blogs/${id}`, {
+        await fetch(`http://localhost:5000/blogs/${id}`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",

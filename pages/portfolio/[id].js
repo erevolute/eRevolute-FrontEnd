@@ -15,7 +15,7 @@ function PortfolioDetails({ title = "" }) {
   const [portfolio, setPortfolio] = useState([]);
   
   useEffect(() => {
-    fetch(`https://gentle-everglades-88789.herokuapp.com/portfolio/${id}`)
+    fetch(`http://localhost:5000/portfolio/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setPortfolio(data);
@@ -41,18 +41,19 @@ function PortfolioDetails({ title = "" }) {
         <h1 className="fw-bold text-center">{portfolio.name} Gallery</h1>
         <div className="port-gallery">
           <div className="port-images">
-            <img className="thumb" src={portfolio.img} />
+            <img className="thumb" src={`data:image/png;base64,${portfolio.img}`} />
           </div>
           <div className="port-images">
             <img
               className="thumb"
-              src={portfolio.img2 ? portfolio.img2 : portfolio.img}
+              src={`data:image/png;base64,${portfolio.img2}`}
+              // src={portfolio.img2 ? portfolio.img2 : portfolio.img}
             />
           </div>
           <div className="port-images">
             <img
               className="thumb"
-              src={portfolio.img3 ? portfolio.img3 : portfolio.img}
+              src={`data:image/png;base64,${portfolio.img3}`}
             />
           </div>
         </div>
@@ -64,7 +65,7 @@ function PortfolioDetails({ title = "" }) {
           <br />
           <br />
           <h4 className="m-2">Description</h4>
-          {ReactHtmlParser(portfolio.description)}
+          {ReactHtmlParser(portfolio?.description)}
           <br />
           <br />
           <h4 className="m-2">Feature</h4>

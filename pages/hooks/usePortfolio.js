@@ -3,7 +3,7 @@ function usePortfolio(){
 
     const [portfolio, setPortfolio] = useState([]);
     useEffect(() => {
-      fetch("https://gentle-everglades-88789.herokuapp.com/portfolio")
+      fetch("http://localhost:5000/portfolio")
         .then((res) => res.json())
         .then((data) =>{
           setTimeout(() => {

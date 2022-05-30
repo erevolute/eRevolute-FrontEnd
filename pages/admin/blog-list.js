@@ -9,13 +9,14 @@ import auth from "../../firebase.init";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { signOut } from "firebase/auth";
 
 function BlogList({ title = "Blog List" }) {
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState(false);
   useEffect(() => {
     setError(true);
-    fetch("https://gentle-everglades-88789.herokuapp.com/blogs")
+    fetch("http://localhost:5000/blogs")
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);
@@ -42,7 +43,9 @@ function BlogList({ title = "Blog List" }) {
     }
   });
   if (loading) {
-    return <div>loading</div>;
+    return <div className="spin">
+    <Spinner className="spinner" animation="border" variant="info" />
+  </div>;
   }
 
   const handleDelete = (id) => {
@@ -56,7 +59,7 @@ function BlogList({ title = "Blog List" }) {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        const url = `https://gentle-everglades-88789.herokuapp.com/blogs/${id}`;
+        const url = `http://localhost:5000/blogs/${id}`;
         fetch(url, {
           method: "DELETE",
         })

@@ -20,10 +20,20 @@ import auth from "../../firebase.init";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { Editor } from "@tinymce/tinymce-react";
+import { signOut } from "firebase/auth";
+import { set } from "react-hook-form";
 
 
 function AddBlog({ title = "Add Blogs" }) {
+
   const [description, setDescription] = useState("");
+  const [blogTitle , setBlogTitle] = useState('')
+  const [img , setImg] = useState('')
+  const [catagory , setCatagory] = useState('')
+  const [metaKeywords , setMetaKeywords] = useState('')
+  const [metaDescription , setMetaDescription] = useState('')
+
+  
   const [isLoading, setIsLoading] = useState();
   const editorRef = useRef(null);
   const router = useRouter();
@@ -35,6 +45,8 @@ function AddBlog({ title = "Add Blogs" }) {
   const handleDropdownBlog = (event) => {
     setDropdownBlog(event);
   };
+
+
   const [dropdown, setDropdown] = useState(false);
   const handleDropdown = (event) => {
     setDropdown(event);
@@ -46,7 +58,7 @@ function AddBlog({ title = "Add Blogs" }) {
       setDescription(editorRef.current.getContent());
     }
   };
-  console.log('ahad' , description)
+
 
   useEffect(()=>{
     if(!user){
@@ -54,33 +66,29 @@ function AddBlog({ title = "Add Blogs" }) {
     }
   })
 
-  if(loading){
-    return <div>
-      loading
-    </div>
+  if (loading) {
+    return <Spinner className="spinner" animation="border" variant="info" />;
   }
 
   const handleValidSubmit = async(event) => {
 	  event.preventDefault()
-   
     setIsLoading(true)
-   const title = event.target.blog.value;
-  const catagory = event.target.catagory.value
   const  date = new Date().toLocaleDateString()
-  const img = event.target.img.value;
-  const metaKeywords = event.target.keywords.value ;
-  const metaDescription = event.target.descriptions.value ;
 
- 
-      const data = ({ description , date, title , img , catagory , metaDescription , metaKeywords })
-    console.log(data)
+  const formData = new FormData()
+  formData.append('description', description)
+  formData.append('title', blogTitle);
+  formData.append('catagory', catagory);
+  formData.append('date', date);
+  formData.append('img', img);
+  formData.append('metaKeywords', metaKeywords);
+  formData.append('metaDescription', metaDescription);
 
-    await fetch('https://gentle-everglades-88789.herokuapp.com/add' , {
+
+
+    await fetch('http://localhost:5000/add' , {
       method: 'POST',
-      headers:{
-          'content-type' : 'application/json'
-      },
-      body: JSON.stringify(data)
+      body: formData 
   })
   .then(res=> res.json())
   .then(result => {
@@ -176,7 +184,7 @@ function AddBlog({ title = "Add Blogs" }) {
                           <div className="col-xl-8 col-sm-7">
                             <input
                               className="form-control"
-                              name="blog"
+                              onBlur={e => setBlogTitle(e.target.value)}
                               id="validationCustom01"
                               type="text"
                               required
@@ -188,12 +196,12 @@ function AddBlog({ title = "Add Blogs" }) {
                         <FormGroup className="form-group mb-3 row">
                           <label className="col-xl-3 col-sm-4 mb-0">
                             Meta Description :
-                            
+                           
                           </label>
                           <div className="col-xl-8 col-sm-7">
                             <input
                               className="form-control"
-                              name="descriptions"
+                              onBlur={e => setMetaDescription(e.target.value)}
                               id="validationCustom01"
                               type="text"
                               required
@@ -209,7 +217,7 @@ function AddBlog({ title = "Add Blogs" }) {
                           <div className="col-xl-8 col-sm-7">
                             <input
                               className="form-control"
-                              name="keywords"
+                              onBlur={e => setMetaKeywords(e.target.value)}
                               id="validationCustom01"
                               type="text"
                               required
@@ -226,7 +234,7 @@ function AddBlog({ title = "Add Blogs" }) {
                           <div className="col-xl-8 col-sm-7">
                             <input
                               className="form-control "
-                              name="catagory"
+                              onBlur={e => setCatagory(e.target.value)}
                               
                               
                               required
@@ -238,15 +246,22 @@ function AddBlog({ title = "Add Blogs" }) {
                           <label className="col-xl-3 col-sm-4 mb-0">
                            Image
                           </label>
-                          <div className="col-xl-8 col-sm-7">
-                            <input
-                              className="form-control "
-                              name="img"
-                              id="validationCustomUsername"
-                             
-                              required
-                            />
-                          </div>
+                          <div className="d-flex  col-xl-8 col-sm-7">
+                         
+                         <input
+                           className=" me-5  "
+                           name="img"
+                           id="validationCustomImg"
+                          
+                       
+                         />
+                    
+                      
+                         <div className="form-file">
+                         <input className="" name="img" onChange={e => setImg(e.target.files[0])} placeholder="select" type="file" id="" />
+                         </div>
+                       
+                       </div>
                          
                         </FormGroup>
                       </div>

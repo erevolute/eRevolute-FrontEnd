@@ -8,7 +8,7 @@ import Image from "next/image";
 function Blogs(){
     const [blogs , setBlogs] = useState([])
     useEffect(()=>{
-      fetch('https://gentle-everglades-88789.herokuapp.com/blogs')
+      fetch('http://localhost:5000/blogs')
       .then(res=>res.json())
       .then(data => {
         setBlogs(data)
@@ -30,7 +30,7 @@ function Blogs(){
        {
          blogs.map(blog =>  <div key={blog._id} className="mt-5">
          <div className="blog-cards m-auto">
-             <img className="blog-img" src={blog.img} alt="" />
+             <img className="blog-img" src={`data:image/png;base64,${blog.img}`}  alt="" />
              <h2>{blog.title}</h2>
              <small>{blog.date}</small>
              <div>

@@ -14,9 +14,15 @@ function Login({ title = "Login" }) {
     useCreateUserWithEmailAndPassword(auth);
   const [signInWithEmailAndPassword, loginloading, loginerror] =
     useSignInWithEmailAndPassword(auth);
-  const [user] = useAuthState(auth);
+  const [user, loadingauth] = useAuthState(auth);
   const router = useRouter();
-
+  const [loadingLogin , setLoadingLogin] = useState(false)
+  useEffect(()=>{
+    setLoadingLogin(true)
+      setTimeout(()=>{
+        setLoadingLogin(false)
+      },2000)
+  },[])
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
@@ -53,8 +59,10 @@ function Login({ title = "Login" }) {
 
   return (
     <>
-      {loginloading ? (
+      {loadingLogin  ? (
+       <div className="spin">
        <Spinner className="spinner" animation="border" variant="info" />
+     </div>
       ) : (
         <div className="login">
           <div className="login-form">

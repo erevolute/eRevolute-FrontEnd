@@ -18,18 +18,18 @@ function Portfolio(){
                 // width="200px"
                 style={{ borderRadius: "20px" }}
                 // height="300px"
-                src={portfolio.img}
+                src={`data:image/png;base64,${portfolio?.img}`} 
                 alt=""
               />
             </div>
 
             <div className="card-back">
-              <img src={portfolio.img} alt="" className="profil-picture" />
+              <img src={`data:image/png;base64,${portfolio?.img}`}  alt="" className="profil-picture" />
 
               <p className="mb-0 fw-bold">
-                {ReactHtmlParser(portfolio.description.slice(0,100))}
+                {ReactHtmlParser(portfolio?.description?.slice(0,100))}
               </p>
-              <h1>{portfolio.name}</h1>
+              <h1>{portfolio?.name}</h1>
 
               <button className="btnFillup anglebg ps-3 pe-3">
                 <Link

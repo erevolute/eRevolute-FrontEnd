@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import Link from "next/link"
+import ReactHtmlParser from 'react-html-parser';
+
 function Blogs() {
   // const date = new Date().toLocaleDateString();
   // const time = new Date().toLocaleTimeString();
 
   const [blogs , setBlogs] = useState([])
   useEffect(()=>{
-    fetch('https://gentle-everglades-88789.herokuapp.com/blogs')
+    fetch('http://localhost:5000/blogs')
     .then(res=>res.json())
-    .then(data => setBlogs(data.slice(0,3)))
+    .then(data => setBlogs(data))
   },[])
 
   const latestBlogsFind = blogs.slice(-3);
@@ -20,13 +22,13 @@ function Blogs() {
         <h1 className="text-center mb-5">Blogs</h1>
       
        <div className="blog">
-       {  
-         latestBlogs.map(blog =>  <div key={blog._id} className="">
+       {latestBlogs.map(blog =>  <div key={blog._id} className="">
          <div className="blog-cards m-auto">
-             <img className="blog-img" src={blog.img} alt="" />
+             <img className="blog-img" src={`data:image/png;base64,${blog.img}`}  alt="" />
              <h2>{blog.title}</h2>
              <small>{blog.date}</small>
-             <p>{blog.description.slice(0,80)}.</p>
+             {ReactHtmlParser(blog?.description?.slice(0, 100))}
+           
              <button className="btnFillup anglebg bg-white m-2">
              <Link
                   href={{

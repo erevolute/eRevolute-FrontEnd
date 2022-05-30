@@ -11,7 +11,7 @@ function BlogsDetails({ title = "" }) {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    fetch(`https://gentle-everglades-88789.herokuapp.com/blogs/${id}`)
+    fetch(`http://localhost:5000/blogs/${id}`)
       .then((res) => res.json())
       .then((data) => setBlogs(data));
   }, []);
@@ -34,7 +34,7 @@ function BlogsDetails({ title = "" }) {
       </Head>
       <Header></Header>
       <div className="blog-details container">
-        <img src={blogs.img} alt="" />
+        <img src={`data:image/png;base64,${blogs.img}`}  alt="" />
         <div>
           
         <h1>{blogs.title}</h1>

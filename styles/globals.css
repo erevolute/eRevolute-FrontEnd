@@ -1186,7 +1186,19 @@ small{
     font-size: 20px;
   }
 }
+#validationCustomImg {
+  border-radius: 5px;
+  border: 1px solid lightgray !important;
+}
+.spin{
+  height: 100vh !important;
+}
+.spinner{
 
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
 @media screen and (max-width: 768px){
   .container-padding{
     height: 120vh;

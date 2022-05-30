@@ -21,10 +21,19 @@ import auth from "../../firebase.init";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { Editor } from "@tinymce/tinymce-react";
-
+import { signOut } from "firebase/auth";
 
 function AddPortfolio({ title = "Admin" }) {
   const [description, setDescription] = useState("");
+  const [name , setName] = useState('')
+  const [siteLink , setSiteLink] = useState('')
+  const [img , setImag] = useState('')
+  const [img2 , setImag2] = useState('')
+  const [img3 , setImg3] = useState('')
+  const [catagory , setCatagory] = useState('')
+  const [metaKeywords , setMetaKeywords] = useState('')
+  const [metaDescription , setMetaDescription] = useState('')
+
   const editorRef = useRef(null);
   const [isLoading, setIsLoading] = useState();
   const router = useRouter()
@@ -36,6 +45,8 @@ function AddPortfolio({ title = "Admin" }) {
   const handleDropdownBlog = (event) => {
     setDropdownBlog(event);
   };
+
+
   const log = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent());
@@ -51,10 +62,10 @@ function AddPortfolio({ title = "Admin" }) {
       router.push('/xlogin')
     }
   })
-  if(loading){
-    return <div>
-      loading
-    </div>
+  if (loading) {
+    return <div className="spin">
+    <Spinner className="spinner" animation="border" variant="info" />
+  </div>;
   }
 
   //	image upload
@@ -62,41 +73,27 @@ function AddPortfolio({ title = "Admin" }) {
   const handleValidSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true)
-    const name = event.target.portfolio.value;
-    const catagory = event.target.catagory.value;
-    const siteLink = event.target.siteLink.value;
-    const date = new Date().toLocaleDateString();
-    const img = event.target.img.value;
-    const img2 = event.target.img2.value;
-    const img3 = event.target.img3.value;
-    const metaKeywords = event.target.keywords.value ;
-    const metaDescription = event.target.descriptions.value ;
+    const  date = new Date().toLocaleDateString()
 
-    const data = ({
-      description,
-      date,
-      name,
-      siteLink,
-      img,
-      img3,
-      img2,
-      catagory,
-      metaKeywords,
-      metaDescription,
-      
-    })
-    console.log(data);
+    const formData = new FormData()
+    formData.append('img3', img3)
+    formData.append('description', description)
+    formData.append('name', name);
+    formData.append('catagory', catagory);
+    formData.append('siteLink', siteLink);
+    formData.append('date', date);
+    formData.append('img', img);
+    formData.append('img2', img2);
+    formData.append('metaKeywords', metaKeywords);
+    formData.append('metaDescription', metaDescription);
 
-    await fetch("https://gentle-everglades-88789.herokuapp.com/add-portfolio", {
+    await fetch("http://localhost:5000/add-portfolio", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(data),
+      body: formData
     })
       .then((res) => res.json())
       .then((result) => {
-        
+        console.log(result)
         if(result.insertedId){
           Swal.fire({
             position: 'center',
@@ -116,7 +113,7 @@ function AddPortfolio({ title = "Admin" }) {
       });
     event.target.reset();
     setIsLoading(false)
-    setDescription(" ");
+    // setDescription(" ");
   };
 
   return (
@@ -184,7 +181,7 @@ function AddPortfolio({ title = "Admin" }) {
                           <div className="col-xl-8 col-sm-7">
                             <input
                               className="form-control"
-                              name="portfolio"
+                              onChange={e => setName(e.target.value)}
                               id="validationCustom01"
                               type="text"
                               required
@@ -192,6 +189,8 @@ function AddPortfolio({ title = "Admin" }) {
                           </div>
                         
                         </FormGroup>
+                        
+                       
                         <FormGroup className="form-group mb-3 row">
                           <label className="col-xl-3 col-sm-4 mb-0">
                             Meta Description :
@@ -200,7 +199,7 @@ function AddPortfolio({ title = "Admin" }) {
                           <div className="col-xl-8 col-sm-7">
                             <input
                               className="form-control"
-                              name="descriptions"
+                              onBlur={e => setMetaDescription(e.target.value)}
                               id="validationCustom01"
                               type="text"
                               required
@@ -216,7 +215,7 @@ function AddPortfolio({ title = "Admin" }) {
                           <div className="col-xl-8 col-sm-7">
                             <input
                               className="form-control"
-                              name="keywords"
+                              onBlur={e => setMetaKeywords(e.target.value)}
                               id="validationCustom01"
                               type="text"
                               required
@@ -232,7 +231,7 @@ function AddPortfolio({ title = "Admin" }) {
                           <div className="col-xl-8 col-sm-7">
                             <input
                               className="form-control "
-                              name="catagory"
+                              onBlur={e=> setCatagory(e.target.value)}
                               
                               
                               required
@@ -247,7 +246,7 @@ function AddPortfolio({ title = "Admin" }) {
                           <div className="col-xl-8 col-sm-7">
                             <input
                               className="form-control "
-                              name="siteLink"
+                               onBlur={e=> setSiteLink(e.target.value)}
                               
                               
                               required
@@ -259,47 +258,66 @@ function AddPortfolio({ title = "Admin" }) {
                           <label className="col-xl-3 col-sm-4 mb-0">
                            Image
                           </label>
-                          <div className="col-xl-8 col-sm-7">
-                            <input
-                              className="form-control "
-                              name="img"
-                              id="validationCustomUsername"
-                             
-                              required
-                            />
-                          </div>
+                          <div className="d-flex  col-xl-8 col-sm-7">
+                         
+                         <input
+                           className=" me-5  "
+                           name="img"
+                           id="validationCustomImg"
                           
+                     
+                         />
+                    
+                      
+                         <div className="form-file">
+                         <input className="" name="img" onBlur={e=> setImag(e.target.files[0])} placeholder="select" type="file" id="" />
+                         </div>
+                          </div>
                         </FormGroup>
                         <FormGroup className="form-group mb-3 row">
                           <label className="col-xl-3 col-sm-4 mb-0">
                            Image 2
                           </label>
-                          <div className="col-xl-8 col-sm-7">
-                            <input
-                              className="form-control "
-                              name="img2"
-                              id="validationCustomUsername"
-                             
-                              required
-                            />
-                          </div>
+                          <div className="d-flex  col-xl-8 col-sm-7">
+                         
+                         <input
+                           className=" me-5  "
+                           name="img2"
+                           id="validationCustomImg"
+                          
+                        
+                         />
+                    
+                      
+                         <div className="form-file">
+                         <input className="" name="img2" onBlur={e=> setImag2(e.target.files[0])} placeholder="select" type="file" id="" />
+                         </div>
+                       
+                       </div>
                           
                         </FormGroup>
                         <FormGroup className="form-group mb-3 row">
                           <label className="col-xl-3 col-sm-4 mb-0">
                            Image 3
                           </label>
-                          <div className="col-xl-8 col-sm-7">
+                          <div className="d-flex  col-xl-8 col-sm-7">
+                         
                             <input
-                              className="form-control "
+                              className=" me-5  "
                               name="img3"
-                              id="validationCustomUsername"
+                              id="validationCustomImg"
                              
-                              required
-                            />
-                          </div>
                           
+                            />
+                       
+                         
+                            <div className="form-file">
+                            <input className="" name="img3" onChange={e => setImg3(e.target.files[0])} placeholder="select" type="file" id="" />
+                            </div>
+                          
+                          </div>
                         </FormGroup>
+                    
                       </div>
                   
                         <FormGroup className="form-group row">

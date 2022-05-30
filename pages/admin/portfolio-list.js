@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import { signOut } from "firebase/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 
@@ -17,7 +18,7 @@ function PortfolioList({ title = "Admin" }) {
   const [error, setError] = useState(false);
   useEffect(() => {
     setError(true);
-    fetch("https://gentle-everglades-88789.herokuapp.com/portfolio")
+    fetch("http://localhost:5000/portfolio")
       .then((res) => res.json())
       .then((data) => {
         setPortfolio(data);
@@ -45,10 +46,10 @@ function PortfolioList({ title = "Admin" }) {
       router.push('/xlogin')
     }
   })
-  if(loading){
-    return <div>
-            loading
-          </div>
+  if (loading) {
+    return <div className="spin">
+      <Spinner className="spinner" animation="border" variant="info" />
+    </div>;
   }
 
   const handleDelete = (id) => {
@@ -62,7 +63,7 @@ function PortfolioList({ title = "Admin" }) {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        const url = `https://gentle-everglades-88789.herokuapp.com/portfolio/${id}`;
+        const url = `http://localhost:5000/portfolio/${id}`;
         fetch(url, {
           method: "DELETE",
         })
