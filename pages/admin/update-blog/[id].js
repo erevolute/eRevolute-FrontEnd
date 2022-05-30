@@ -92,7 +92,7 @@ function AddBlog({title = "Update Blogs"}){
     };
     useEffect(()=>{
         setIsLoading(true)
-        fetch('http://localhost:5000/blogs')
+        fetch('https://gentle-everglades-88789.herokuapp.com/blogs')
         .then(res => res.json())
         .then(data => {
             setIsLoading(false)
@@ -138,7 +138,7 @@ function AddBlog({title = "Update Blogs"}){
 
         console.log(data)
     
-        await fetch(`http://localhost:5000/blogs/${id}`, {
+        await fetch(`https://gentle-everglades-88789.herokuapp.com/blogs/${id}`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",

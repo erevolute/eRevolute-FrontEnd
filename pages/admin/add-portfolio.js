@@ -87,7 +87,7 @@ function AddPortfolio({ title = "Admin" }) {
     formData.append('metaKeywords', metaKeywords);
     formData.append('metaDescription', metaDescription);
 
-    await fetch("http://localhost:5000/add-portfolio", {
+    await fetch("https://gentle-everglades-88789.herokuapp.com/add-portfolio", {
       method: "POST",
       body: formData
     })

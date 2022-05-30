@@ -18,7 +18,7 @@ function PortfolioList({ title = "Admin" }) {
   const [error, setError] = useState(false);
   useEffect(() => {
     setError(true);
-    fetch("http://localhost:5000/portfolio")
+    fetch("https://gentle-everglades-88789.herokuapp.com/portfolio")
       .then((res) => res.json())
       .then((data) => {
         setPortfolio(data);
@@ -63,7 +63,7 @@ function PortfolioList({ title = "Admin" }) {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        const url = `http://localhost:5000/portfolio/${id}`;
+        const url = `https://gentle-everglades-88789.herokuapp.com/portfolio/${id}`;
         fetch(url, {
           method: "DELETE",
         })

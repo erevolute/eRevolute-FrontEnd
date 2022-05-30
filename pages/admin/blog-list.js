@@ -16,7 +16,7 @@ function BlogList({ title = "Blog List" }) {
   const [error, setError] = useState(false);
   useEffect(() => {
     setError(true);
-    fetch("http://localhost:5000/blogs")
+    fetch("https://gentle-everglades-88789.herokuapp.com/blogs")
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);
@@ -59,7 +59,7 @@ function BlogList({ title = "Blog List" }) {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        const url = `http://localhost:5000/blogs/${id}`;
+        const url = `https://gentle-everglades-88789.herokuapp.com/blogs/${id}`;
         fetch(url, {
           method: "DELETE",
         })
