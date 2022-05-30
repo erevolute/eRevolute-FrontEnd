@@ -33,7 +33,6 @@ function AddPortfolio({ title = "Admin" }) {
   const [catagory , setCatagory] = useState('')
   const [metaKeywords , setMetaKeywords] = useState('')
   const [metaDescription , setMetaDescription] = useState('')
-console.log(catagory)
   const editorRef = useRef(null);
   const [isLoading, setIsLoading] = useState();
   const router = useRouter()

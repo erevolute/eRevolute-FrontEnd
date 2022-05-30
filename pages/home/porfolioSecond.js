@@ -9,6 +9,7 @@ function PorfolioSecond() {
  
   const [portfolio] = usePortfolio([])
 console.log(portfolio)
+
   //  latest portfolio
   const latestPorfolioFind = portfolio.slice(-6);
   const latestPortfolio = latestPorfolioFind.reverse();
@@ -23,6 +24,11 @@ console.log(portfolio)
   const eCommerceCatagory = portfolio
     .filter((port) => port.catagory == eCommerce)
     .slice(0, 4);
+
+  const Funel = "funel";
+  const funelCatagory = portfolio
+    .filter((port) => port.catagory == Funel)
+    .slice(0, 5);
 
   return (
     <div className="mt-5 text-center">
@@ -151,7 +157,42 @@ console.log(portfolio)
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="tabs"></div>
+        <div className="tabs">
+            {funelCatagory.map((funel) => (
+              <div key={ecommerce._id} className="card-port border-0 mb-5">
+                <div className="card-front">
+                  <img
+                    // width="200px"
+                    style={{ borderRadius: "20px" }}
+                    // height="300px"
+                    src={`data:image/png;base64,${funel?.img}`}
+                    alt=""
+                  />
+                </div>
+
+                <div className="card-back">
+                  <img src={`data:image/png;base64,${funel?.img}`} alt="" className="profil-picture" />
+
+                  <p className="mb-0 fw-bold">
+                    {funel?.description?.slice(0, 100)}
+                  </p>
+                  <h1>{funel?.name}</h1>  
+
+                  <button className="btnFillup anglebg ps-3 pe-3">
+                    <Link
+                      href={{
+                        pathname: "/portfolio/[id]",
+
+                        query: { id: funel._id },
+                      }}
+                    >
+                      Details
+                    </Link>
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </TabPanel>
       </Tabs>
     </div>
