@@ -1161,7 +1161,7 @@ small{
 @media screen and (max-width: 998px){
   
   .container-padding{
-    height: 120vh;
+    height: 700px !important;
     padding-left: 5px !important;
   }
   .button-offcanvas{
@@ -1186,6 +1186,7 @@ small{
     font-size: 20px;
   }
 }
+
 @media screen and (max-width: 768px){
   .container-padding{
     height: 120vh;
