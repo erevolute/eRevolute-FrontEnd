@@ -46,12 +46,13 @@ const Admin = ({ title = "Admin" }) => {
 
       <div className="dashboard">
         <div className="side-nav">
+          <Link href='/'>
           <img
             width={200}
             className="m-2"
             src="https://i.ibb.co/2nXZjsY/final.png"
             alt=""
-          />
+          /></Link>
           <hr />
 
           <li>

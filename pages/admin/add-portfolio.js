@@ -33,7 +33,7 @@ function AddPortfolio({ title = "Admin" }) {
   const [catagory , setCatagory] = useState('')
   const [metaKeywords , setMetaKeywords] = useState('')
   const [metaDescription , setMetaDescription] = useState('')
-
+console.log(catagory)
   const editorRef = useRef(null);
   const [isLoading, setIsLoading] = useState();
   const router = useRouter()
@@ -124,12 +124,13 @@ function AddPortfolio({ title = "Admin" }) {
 
       <div className="dashboard">
         <div className="side-nav">
+        <Link href='/'>
           <img
             width={200}
             className="m-2"
             src="https://i.ibb.co/2nXZjsY/final.png"
             alt=""
-          />
+          /></Link>
           <hr />
 
           <li>
@@ -229,13 +230,16 @@ function AddPortfolio({ title = "Admin" }) {
                             Portfolio Catagory :
                           </label>
                           <div className="col-xl-8 col-sm-7">
-                            <input
+                            <select 
                               className="form-control "
-                              onBlur={e=> setCatagory(e.target.value)}
-                              
-                              
+                              onBlur={e => setCatagory(e.target.value)}
+
                               required
-                            />
+                            >
+                                <option value="web">Web</option>
+                                <option value="ecommerce">Ecommerce</option>
+                                <option value="funel">Funel</option>
+                            </select>
                           </div>
                          
                         </FormGroup>

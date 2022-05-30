@@ -33,7 +33,7 @@ function AddBlog({ title = "Add Blogs" }) {
   const [metaKeywords , setMetaKeywords] = useState('')
   const [metaDescription , setMetaDescription] = useState('')
 
-  
+
   const [isLoading, setIsLoading] = useState();
   const editorRef = useRef(null);
   const router = useRouter();
@@ -126,12 +126,13 @@ function AddBlog({ title = "Add Blogs" }) {
 
       <div className="dashboard">
         <div className="side-nav">
+        <Link href='/'>
           <img
             width={200}
             className="m-2"
             src="https://i.ibb.co/2nXZjsY/final.png"
             alt=""
-          />
+          /></Link>
           <hr />
 
           <li>
@@ -232,13 +233,16 @@ function AddBlog({ title = "Add Blogs" }) {
                             Blog Catagory :
                           </label>
                           <div className="col-xl-8 col-sm-7">
-                            <input
+                            <select 
                               className="form-control "
                               onBlur={e => setCatagory(e.target.value)}
-                              
-                              
+
                               required
-                            />
+                            >
+                                <option value="web">Web</option>
+                                <option value="ecommerce">Ecommerce</option>
+                                <option value="funel">Funel</option>
+                            </select>
                           </div>
                           
                         </FormGroup>

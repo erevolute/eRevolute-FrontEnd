@@ -181,12 +181,13 @@ function AddBlog({title = "Update Blogs"}){
   
         <div className="dashboard">
           <div className="side-nav">
-            <img
-              width={200}
-              className="m-2"
-              src="https://i.ibb.co/2nXZjsY/final.png"
-              alt=""
-            />
+          <Link href='/'>
+          <img
+            width={200}
+            className="m-2"
+            src="https://i.ibb.co/2nXZjsY/final.png"
+            alt=""
+          /></Link>
             <hr />
   
             <li>

@@ -3,20 +3,26 @@ import { useEffect, useState } from "react";
 import Footer from "../footer";
 import Header from "../header";
 import Head from "next/head";
+import {Spinner} from "react-bootstrap"
 import ReactHtmlParser from 'react-html-parser';
 
 function BlogsDetails({ title = "" }) {
   const router = useRouter();
   const id = router.query.id;
   const [blogs, setBlogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true)
     fetch(`https://gentle-everglades-88789.herokuapp.com/blogs/${id}`)
       .then((res) => res.json())
-      .then((data) => setBlogs(data));
+      .then((data) => {
+        setIsLoading(false)
+        setBlogs(data)
+      });
   }, []);
 
- console.log(blogs?.metaDescription)
+
 
 
   const customTitle = (blogs.title);
@@ -33,7 +39,8 @@ function BlogsDetails({ title = "" }) {
         <meta name="keywords" content={blogs.metaKeywords} />
       </Head>
       <Header></Header>
-      <div className="blog-details container">
+      {
+        isLoading ?  <Spinner className="spinner" animation="border" variant="info" /> : <> <div className="blog-details container">
         <img src={`data:image/png;base64,${blogs.img}`}  alt="" />
         <div>
           
@@ -41,7 +48,9 @@ function BlogsDetails({ title = "" }) {
         <p>Posted : {blogs.date}</p>
         </div>
       </div>
-      <p className="container">{ReactHtmlParser(blogs.description)} </p>
+      <p className="container">{ReactHtmlParser(blogs.description)} </p></>
+      }
+      
     
       <Footer></Footer>
     </div>

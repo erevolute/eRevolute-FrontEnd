@@ -8,16 +8,20 @@ import { faCheckDouble } from "@fortawesome/free-solid-svg-icons";
 import ReactHtmlParser from "react-html-parser";
 import { ScaleLoader } from "react-spinners";
 import Image from "next/image";
+import { Spinner } from "react-bootstrap";
 
 function PortfolioDetails({ title = "" }) {
   const router = useRouter();
   const id = router.query.id;
   const [portfolio, setPortfolio] = useState([]);
-  
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
+    setIsLoading(true)
     fetch(`https://gentle-everglades-88789.herokuapp.com/portfolio/${id}`)
       .then((res) => res.json())
       .then((data) => {
+        setIsLoading(false)
         setPortfolio(data);
       });
   }, [router]);
@@ -37,7 +41,8 @@ function PortfolioDetails({ title = "" }) {
         <meta name="keywords" content={portfolio.metaKeywords} />
       </Head>
       <Header></Header>
-      <div className="portfolio-details">
+      {
+        isLoading ? <Spinner className="spinner" animation="border" variant="info" /> :  <div className="portfolio-details">
         <h1 className="fw-bold text-center">{portfolio.name} Gallery</h1>
         <div className="port-gallery">
           <div className="port-images">
@@ -79,6 +84,7 @@ function PortfolioDetails({ title = "" }) {
           </p>
         </div>
       </div>
+      }
 
       <Footer></Footer>
     </div>
