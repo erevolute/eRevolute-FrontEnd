@@ -8,10 +8,10 @@ function usePortfolio(){
         .then((data) =>{
           setTimeout(() => {
             setPortfolio(data)
-          }, 1000);
+          }, 2000);
         });
       
-    }, [3]);
+    }, []);
     
     return [portfolio]
 }
