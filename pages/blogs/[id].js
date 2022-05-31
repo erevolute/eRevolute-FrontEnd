@@ -48,7 +48,7 @@ function BlogsDetails({ title = "" }) {
         <p>Posted : {blogs.date}</p>
         </div>
       </div>
-      <p className="container">{ReactHtmlParser(blogs.description)} </p></>
+      <p className="container">{ReactHtmlParser(blogs?.description)} </p></>
       }
       
     

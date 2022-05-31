@@ -12,7 +12,7 @@ function Blogs() {
     .then(res=>res.json())
     .then(data => setBlogs(data))
   },[])
-
+  console.log(blogs)
   const latestBlogsFind = blogs.slice(-3);
   const latestBlogs = latestBlogsFind.reverse();
 
@@ -23,12 +23,14 @@ function Blogs() {
       
        <div className="blog">
        {latestBlogs.map(blog =>  <div key={blog._id} className="">
-         <div className="blog-cards m-auto">
+         <div className="blog-cards m-auto p-2">
              <img className="blog-img" src={`data:image/png;base64,${blog.img}`}  alt="" />
-             <h2>{blog.title}</h2>
+             <hr />
+             <h4>{blog.title?.slice(0,30)}</h4>
              <small>{blog.date}</small>
-             {ReactHtmlParser(blog?.description?.slice(0, 100))}
-           
+             <br />
+            <span>{ReactHtmlParser(blog?.description?.slice(0, 100))}...</span>
+           <br />
              <button className="btnFillup anglebg bg-white m-2">
              <Link
                   href={{

@@ -537,14 +537,14 @@ a {
 .blog {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  
+ 
 }
 .blog-img {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   width: 100% !important;
-  width: 350px;
-  height: 250px;
+  width: 250px;
+  height: 200px;
 }
 .blog-cards {
   width: 350px;
@@ -556,6 +556,10 @@ a {
 small,
 p {
   padding-left: 10px;
+}
+.blog-cards  h3 {
+  font-size: 18px;
+  display: inline;
 }
 .blog-cards > .btnFillup,
 .anglebg {
@@ -936,11 +940,13 @@ img.thumb:hover {
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Blogs Details Pages --------------------------------------------------------------------------------------------------------------------------------- */
 .blog-details{
-  margin-top: 80px;
-
+  margin-top: 80px ;
+  text-align: center;
 }
 .blog-details img{
-  width: 100%;
+  
+  width: 50%;
+  height: 400px;
 }
 
 .ql-tooltip > input {

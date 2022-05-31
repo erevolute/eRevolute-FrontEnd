@@ -6,9 +6,10 @@ function usePortfolio(){
       fetch("https://gentle-everglades-88789.herokuapp.com/portfolio")
         .then((res) => res.json())
         .then((data) =>{
+          setPortfolio(data)
           setTimeout(() => {
             setPortfolio(data)
-          }, 2000);
+          }, 1000);
         });
       
     }, []);
