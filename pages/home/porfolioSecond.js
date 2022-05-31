@@ -4,11 +4,10 @@ import "react-tabs/style/react-tabs.css";
 import Link from "next/link";
 import usePortfolio from "../hooks/usePortfolio";
 import ReactHtmlParser from 'react-html-parser';
-import { Spinner } from "react-bootstrap";
 
 function PorfolioSecond() {
  
-  const [portfolio , loading] = usePortfolio([])
+  const [portfolio] = usePortfolio([])
 
   //  latest portfolio
   const latestPorfolioFind = portfolio.slice(-6);
@@ -43,8 +42,7 @@ function PorfolioSecond() {
         </TabList>
 
         <TabPanel>
-          {
-            loading ? <Spinner className="spinner" animation="border" variant="info" /> : <div className="tabs">
+          <div className="tabs">
             {latestPortfolio.map((latest) => (
               <div key={latest._id} className="card-port border-0 mb-5">
                 <div className="card-front">
@@ -80,7 +78,6 @@ function PorfolioSecond() {
               </div>
             ))}
           </div>
-          }
         </TabPanel>
         <TabPanel>
           <div className="tabs">
@@ -161,7 +158,7 @@ function PorfolioSecond() {
         <TabPanel>
         <div className="tabs">
             {funelCatagory.map((funel) => (
-              <div key={funel._id} className="card-port border-0 mb-5">
+              <div key={ecommerce._id} className="card-port border-0 mb-5">
                 <div className="card-front">
                   <img
                     // width="200px"
