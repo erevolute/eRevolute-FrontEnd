@@ -86,7 +86,7 @@ function AddBlog({ title = "Add Blogs" }) {
 
 
 
-    await fetch('https://gentle-everglades-88789.herokuapp.com/add' , {
+    await fetch('http://localhost:5000/add' , {
       method: 'POST',
       body: formData 
   })

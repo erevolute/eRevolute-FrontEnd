@@ -1,151 +1,158 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  FormGroup,
-  Row,
-  Spinner,
-} from "react-bootstrap";
-import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
-import { useEffect, useState , useRef } from "react";
-// import DashboardNav from "../components/dashboard";
-import Swal from "sweetalert2";
-import DashboardNav from "../../components/dashboard";
-// import { useAuthState } from "react-firebase-hooks/auth";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOut } from "@fortawesome/free-solid-svg-icons";
-import { useAuthState } from "react-firebase-hooks/auth";
-import auth from "../../../firebase.init";
-import { signOut } from "firebase/auth";
 import { Editor } from "@tinymce/tinymce-react";
+import {
+    Button,
+    Card,
+    Col,
+    Container,
+    Form,
+    FormGroup,
+    Row,
+    Spinner,
+  } from "react-bootstrap";
+  import Swal from "sweetalert2";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faL, faSignOut } from '@fortawesome/free-solid-svg-icons';
+import DashboardNav from '../../components/dashboard';
+import { signOut } from 'firebase/auth';
+import auth from '../../../firebase.init';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { HashLoader } from 'react-spinners';
+import { css } from "@emotion/react";
+import usePortfolio from '../../hooks/usePortfolio';
 
 
-
-function AddBlog({title = "Update Blogs"}){
-
+const UpdatePortfolio = ({title = "Update Portfolio"}) => {
     const router = useRouter();
     const id = router.query.id;
-    const [blogs , setBlogs] = useState([])
-    useEffect(()=>{
-      setIsLoading(true)
-      fetch('http://localhost:5000/blogs')
-      .then(res => res.json())
-      .then(data => {
-          setIsLoading(false)
-          setBlogs(data)
-      })
-  },[])
-  const findTitle = blogs.find(port => port._id == id)
-  
+    const editorRef = useRef(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingSubmit, setisLoadingSubmit] = useState(false);
+    const [user , loading , error] = useAuthState(auth);
     const [description, setDescription] = useState("");
     const [img , setImg] = useState('')
-    const [isLoading, setIsLoading] = useState();
-    const [user , loading , error] = useAuthState(auth);
 
-    const logout = () => {
-      signOut(auth);
-    };
-    const editorRef = useRef(null);
     const log = () => {
       if (editorRef.current) {
         console.log(editorRef.current.getContent());
         setDescription(editorRef.current.getContent());
       }
     };
-    const [dropdownBlog, setDropdownBlog] = useState(false);
-    const handleDropdownBlog = (event) => {
-      setDropdownBlog(event);
-    };
-    const [dropdown, setDropdown] = useState(false);
-    const handleDropdown = (event) => {
-      setDropdown(event);
-    };
     
+    const [portfolio , load] = usePortfolio([])
+    // useEffect(()=>{
+    //     setIsLoading(true)
+    //     fetch('http://localhost:5000/portfolio')
+    //     .then(res => res.json())
+    //     .then(data => {
+    //         setPortfolio(data)
+    //         setIsLoading(false)
+    //     })
+    // },[])
+    const findTitle = portfolio.find(port => port._id == id)
 
-    
-    useEffect(()=>{
-      if(!user){
-        router.push('/xlogin')
-      }
-    })
-  
-    if(loading){
-      return <div className="spin">
-      <Spinner className="spinner" animation="border" variant="info" />
-    </div>
-    }
 
-    
 
     const handleValidSubmit = async (event) => {
-      setIsLoading(true)
+        setisLoadingSubmit(true)
         event.preventDefault();
-        const  date = new Date().toLocaleDateString()
-
-        const title = event.target.title.value;
+    
+        const name = event.target.portfolio.value;
+        const catagory = event.target.catagory.value;
+        const siteLink = event.target.siteLink.value;
         const metaDes = event.target.metaDes.value;
         const metaKey = event.target.metaKey.value;
-        const metaCat = event.target.metaCat.value;
 
-        const data = {title,metaCat, metaDes, metaKey}
+
+        const date = new Date().toLocaleDateString();
+    
+        const data = {
+            name ,
+            catagory ,
+            siteLink,
+            metaDes,
+            metaKey
+        };
+        console.log(data);
 
         const formData = new FormData()
         formData.append('description', description)
-        formData.append('date', date);
         formData.append('img', img);
-       
-        
-        await fetch(`http://localhost:5000/blogs/${id}`, {
+        formData.append('date', date);
+    
+        await fetch(`http://localhost:5000/portfolio/${id}`, {
           method: "PATCH",
-          body: formData,
+          body: formData
         })
           .then((res) => res.json())
         .then((result) => 
         {
-          if (result.modifiedCount){
-              fetch(`http://localhost:5000/blogs/${id}`, {
-              method: "PUT",
-              headers : {
-                'content-type' : 'application/json'
-              },
-              body: JSON.stringify(data)
-            }).then(res => res.json()).then(data => {
-               if (data.modifiedCount) {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Updated Successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            } else
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
-              });
-            })
-          }
-           
+            if (result.modifiedCount){
+                fetch(`http://localhost:5000/portfolio/${id}`, {
+                method: "PUT",
+                headers : {
+                  'content-type' : 'application/json'
+                },
+                body: JSON.stringify(data)
+              }).then(res => res.json()).then(data => {
+                 if (data.modifiedCount) {
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Updated Successfully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              } else
+                Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: "Something went wrong!",
+                });
+              })
+            }
           }
         );
     
         event.target.reset();
-        setIsLoading(false)
         setDescription(" ");
-    
-     
+        setisLoadingSubmit(false)
       };
-  
 
+      const logout = () => {
+        signOut(auth);
+      };
+      const [dropdownBlog, setDropdownBlog] = useState(false);
+      const handleDropdownBlog = (event) => {
+        setDropdownBlog(event);
+      };
+      const [dropdown, setDropdown] = useState(false);
+      const handleDropdown = (event) => {
+        setDropdown(event);
+      };
+      
+      const override = css`display: block;
+      margin: 0 auto;
+      border-color: red;`
+    
+      
+      useEffect(()=>{
+        if(!user){
+          router.push('/xlogin')
+        }
+      })
+    
+      if(loading){
+        return <div className="spin">
+        <Spinner className="spinner" animation="border" variant="info" />
+      </div>
+      }
 
     return (
-     
+        
         <div>
         <Head>
           <title>{title}</title>
@@ -187,42 +194,47 @@ function AddBlog({title = "Update Blogs"}){
           </div>
           <div className="nav-content">
           <DashboardNav></DashboardNav>
-       
-          <Container fluid={true} className="container-padding">
-            <Row>
-              <Col sm="12">
-                <Card className="form-card">
+        <Container fluid={true} className="container-padding">
+        <Row>
+          <Col sm="12">
+            <Card className="form-card">
+              {
+                  load ? <HashLoader
+
+                  
+                  size={50}
+                  color={"#35d8ea"}
+                  css={override}
+                  /> : <>
                   <>
-                    <h2>Update Blog</h2>
-                    <h4 className="text-center text-danger">{findTitle?.title}</h4>
-                  </>
-                  <div>
-                    <Row className="product-adding">
-                      <Col xl="7">
-                      <Form
+                <h5>Update Portfolio </h5>
+                
+              </>
+              <div>
+                <Row className="product-adding">
+                <h2 className="text-center text-danger mx-auto">{findTitle?.name}</h2>
+                  <Col xl="7">
+                    <Form
                       className="needs-validation add-product-form"
                       onSubmit={handleValidSubmit}
                     >
-
                       <div className="form2 form-label-center">
-                      <FormGroup className="form-group mb-3 row">
+                        <FormGroup className="form-group mb-3 row">
                           <label className="col-xl-3 col-sm-4 mb-0">
-                          Update Blog Title :
-                            
+                          Update  Portfolio Name :
                           </label>
                           <div className="col-xl-8 col-sm-7">
                             <input
+                               defaultValue={findTitle?.name}
                               className="form-control"
-                              defaultValue={findTitle?.title}
+                              name="portfolio"
                               id="validationCustom01"
                               type="text"
-                              name="title"
                               required
                             />
                           </div>
-                        
                         </FormGroup>
-                     
+                        
                         <FormGroup className="form-group mb-3 row">
                           <label className="col-xl-3 col-sm-4 mb-0">
                           Update Meta Description :
@@ -232,7 +244,7 @@ function AddBlog({title = "Update Blogs"}){
                             <input
                               className="form-control"
                               defaultValue={findTitle?.metaDescription}
-                              
+                             
                               id="validationCustom01"
                               type="text"
                               name="metaDes"
@@ -250,7 +262,7 @@ function AddBlog({title = "Update Blogs"}){
                             <input
                               className="form-control"
                               defaultValue={findTitle?.metaKeywords}
-                              
+                    
                               id="validationCustom01"
                               type="text"
                               name="metaKey"
@@ -259,17 +271,15 @@ function AddBlog({title = "Update Blogs"}){
                           </div>
                         
                         </FormGroup>
-                       
-                        
                         <FormGroup className="form-group mb-3 row">
                           <label className="col-xl-3 col-sm-4 mb-0">
-                          Update Blog Catagory :
+                          Update  Portfolio Catagory :
                           </label>
                           <div className="col-xl-8 col-sm-7">
                             <select 
                               className="form-control "
                               defaultValue={findTitle?.catagory}
-                              name="metaCat"
+                              name="catagory"
                               required
                             >
                                 <option value="web">Web</option>
@@ -277,31 +287,40 @@ function AddBlog({title = "Update Blogs"}){
                                 <option value="funel">Funel</option>
                             </select>
                           </div>
-                          
+                        </FormGroup>
+                        <FormGroup className="form-group mb-3 row">
+                          <label className="col-xl-3 col-sm-4 mb-0">
+                          Update Site Link :
+                          </label>
+                          <div className="col-xl-8 col-sm-7">
+                            <input
+                              className="form-control "
+                              defaultValue={findTitle?.siteLink}
+                              name="siteLink"
+                              required
+                            />
+                          </div>
                         </FormGroup>
                         <FormGroup className="form-group mb-3 row">
                           <label className="col-xl-3 col-sm-4 mb-0">
                           Update Image
                           </label>
-                          <div className="d-flex  col-xl-8 col-sm-7">
-                         
-                      
+                          <div className="col-xl-8 col-sm-7">
+                                
                          <div className="form-file">
                          <input className="" name="img"  onChange={e => setImg(e.target.files[0])} placeholder="select" type="file" id="" />
                          </div>
-                       
-                       </div>
-                         
+                          </div>
                         </FormGroup>
+                    
                       </div>
-                  
-                        <FormGroup className="form-group row">
-                          <label className="col-xl-3 col-sm-4">
-                          Update Add Description :
-                          </label>
-                          <div   className="col-xl-8 col-sm-7 description-sm">
-                          
-                          <Editor
+
+                      <FormGroup className="form-group row">
+                        <label className="col-xl-3 col-sm-4">
+                        Update Description :
+                        </label>
+                        <div className="col-xl-8 col-sm-7 description-sm">
+                        <Editor
                           onBlur={log}
                           name="a"
                       apiKey="xmj2nso1m4q3nawunaj3v7i36tumphzicdcukaq3ks2zpnha"
@@ -342,31 +361,27 @@ function AddBlog({title = "Update Blogs"}){
                           relative_urls: true,
                       }}
                     />
-                       
+                        </div>
+                      </FormGroup>
 
-                           
-                          </div>
-                        </FormGroup>
-                      
+                                <br />
                       <div className="offset-xl-3  offset-sm-4">
                       <button type="submit" className="btnFillup anglebg bg-white w-50" >
                          {
-                           isLoading ?  <Spinner  animation="border" variant="dark" /> : "Update Blog"
+                           isLoadingSubmit ?  <Spinner  animation="border" variant="dark" /> : "Update Blog"
                          }
                         </button>
                       </div>
                     </Form>
-                      </Col>
-                    </Row>
-                  </div>
-                </Card>
-              </Col>
-            </Row>
-          </Container>
-        
-         
-  
-            <div
+                  </Col>
+                </Row>
+              </div></>
+              }
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+      <div
               className="offcanvas offcanvas-start"
              
               id="offcanvasExample"
@@ -421,6 +436,7 @@ function AddBlog({title = "Update Blogs"}){
           </div>
         </div>
       </div>
-    )
-}
-export default AddBlog;
+    );
+};
+
+export default UpdatePortfolio;

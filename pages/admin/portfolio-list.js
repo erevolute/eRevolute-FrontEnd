@@ -11,20 +11,22 @@ import auth from "../../firebase.init";
 import { signOut } from "firebase/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
-
+import usePortfolio from "../hooks/usePortfolio";
+import { ClockLoader } from "react-spinners";
+import { css } from "@emotion/react";
 
 function PortfolioList({ title = "Admin" }) {
-  const [portfolio, setPortfolio] = useState([]);
-  const [error, setError] = useState(false);
-  useEffect(() => {
-    setError(true);
-    fetch("https://gentle-everglades-88789.herokuapp.com/portfolio")
-      .then((res) => res.json())
-      .then((data) => {
-        setPortfolio(data);
-        setError(false);
-      });
-  }, []);
+  const [portfolio, loader] = usePortfolio();
+  // const [error, setError] = useState(false);
+  // useEffect(() => {
+  //   setError(true);
+  //   fetch("http://localhost:5000/portfolio")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setPortfolio(data);
+  //       setError(false);
+  //     });
+  // }, []);
   const router = useRouter()
   const [user , loading ] = useAuthState(auth);
 
@@ -63,7 +65,7 @@ function PortfolioList({ title = "Admin" }) {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        const url = `https://gentle-everglades-88789.herokuapp.com/portfolio/${id}`;
+        const url = `http://localhost:5000/portfolio/${id}`;
         fetch(url, {
           method: "DELETE",
         })
@@ -78,6 +80,10 @@ function PortfolioList({ title = "Admin" }) {
       }
     });
   };
+      
+  const override = css`display: block;
+  margin: 0 auto;
+  border-color: red;`
   return (
     <div>
       <Head>
@@ -124,12 +130,13 @@ function PortfolioList({ title = "Admin" }) {
             <Row>
               <Col sm="12">
                 <Card>
-                  {error ? (
-                    <Spinner
-                      className="spinner"
-                      animation="border"
-                      variant="info"
-                    />
+                  {loader ? (
+                    <ClockLoader
+
+                    size={50}
+                    color={"#35d8ea"}
+                    css={override}
+                    /> 
                   ) : (
                     <>
                       <>
@@ -152,10 +159,12 @@ function PortfolioList({ title = "Admin" }) {
                                   <td>{portfolio.name}</td>
                                   <td>{portfolio?.date}</td>
                                   <td>
-                                    <button className="border-0 btn bg-info p-2  text-white fw-bold">
+                                  <button className="border-0 btn bg-info p-2 m-2 text-white fw-bold">
                                       <Link
-                                        portfolio={portfolio}
-                                        href={`/update-portfolio/${portfolio._id}`}
+                                        href={{
+                                          pathname: "/admin/update-portfolio/[id]",
+                                          query: { id: portfolio._id },
+                                        }}
                                       >
                                         Edit
                                       </Link>

@@ -18,7 +18,7 @@ function PortfolioDetails({ title = "" }) {
 
   useEffect(() => {
     setIsLoading(true)
-    fetch(`https://gentle-everglades-88789.herokuapp.com/portfolio/${id}`)
+    fetch(`http://localhost:5000/portfolio/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setIsLoading(false)

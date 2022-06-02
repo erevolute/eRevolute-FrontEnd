@@ -14,7 +14,7 @@ function BlogsDetails({ title = "" }) {
 
   useEffect(() => {
     setIsLoading(true)
-    fetch(`https://gentle-everglades-88789.herokuapp.com/blogs/${id}`)
+    fetch(`http://localhost:5000/blogs/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setIsLoading(false)
