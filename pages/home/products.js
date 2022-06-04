@@ -140,11 +140,12 @@ function Products() {
             </Card.Body>
           </Card>
         </Link>
+        
 
         <Card className="card border-0" data-aos="fade-up">
           <Card.Img
             variant="top"
-            src="https://xmartech.in/images/services/seo.png"
+            src="https://i.ibb.co/3syt5hN/content.png"
           />
           <Card.Body>
             <Card.Title className="fw-bold">
@@ -160,7 +161,7 @@ function Products() {
         <Card className="card border-0" data-aos="fade-up">
           <Card.Img
             variant="top"
-            src="https://xmartech.in/images/services/content.png"
+            src="https://i.ibb.co/dPWdYWT/seo.png"
           />
           <Card.Body>
             <Card.Title className="fw-bold">Course And Consultancy</Card.Title>
