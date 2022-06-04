@@ -167,7 +167,7 @@ function Products() {
             <Card.Title className="fw-bold">Course And Consultancy</Card.Title>
             <Card.Text>
               Great content always starts with great ideas. No idea is off
-              limits to explore with our talented team of content managers. We
+              limits to explore with our  talented team of content managers. We
               are always searching for good stories that are happening right in
               front of us and how they can make lives better.
             </Card.Text>
