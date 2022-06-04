@@ -252,13 +252,6 @@ function AddBlog({ title = "Add Blogs" }) {
                               </label>
                               <div className="d-flex  col-xl-8 col-sm-7">
 
-                                <input
-                                  className=" me-5  "
-                                  name="img"
-                                  id="validationCustomImg"
-
-
-                                />
 
 
                                 <div className="form-file">

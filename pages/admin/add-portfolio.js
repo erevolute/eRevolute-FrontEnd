@@ -262,16 +262,6 @@ function AddPortfolio({ title = "Admin" }) {
                                 Image
                               </label>
                               <div className="d-flex  col-xl-8 col-sm-7">
-
-                                <input
-                                  className=" me-5  "
-                                  name="img"
-                                  id="validationCustomImg"
-
-
-                                />
-
-
                                 <div className="form-file">
                                   <input className="" name="img" onBlur={e => setImag(e.target.files[0])} placeholder="select" type="file" id="" />
                                 </div>
@@ -283,13 +273,6 @@ function AddPortfolio({ title = "Admin" }) {
                               </label>
                               <div className="d-flex  col-xl-8 col-sm-7">
 
-                                <input
-                                  className=" me-5  "
-                                  name="img2"
-                                  id="validationCustomImg"
-
-
-                                />
 
 
                                 <div className="form-file">
@@ -305,13 +288,6 @@ function AddPortfolio({ title = "Admin" }) {
                               </label>
                               <div className="d-flex  col-xl-8 col-sm-7">
 
-                                <input
-                                  className=" me-5  "
-                                  name="img3"
-                                  id="validationCustomImg"
-
-
-                                />
 
 
                                 <div className="form-file">
