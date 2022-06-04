@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
-function usePortfolio(){
+function usePortfolio() {
 
-    const [portfolio, setPortfolio] = useState([]);
-    const [load , setLoad] = useState(false)
-    useEffect(() => {
-      setLoad(true)
-      fetch("http://localhost:5000/portfolio")
-        .then((res) => res.json())
-        .then((data) =>{
+  const [portfolio, setPortfolio] = useState([]);
+  const [load, setLoad] = useState(false)
+  useEffect(() => {
+    setLoad(true)
+    fetch("https://intense-crag-46696.herokuapp.com/portfolio")
+      .then((res) => res.json())
+      .then((data) => {
+        setPortfolio(data)
+        setLoad(false)
+        setTimeout(() => {
           setPortfolio(data)
           setLoad(false)
-          setTimeout(() => {
-            setPortfolio(data)
-            setLoad(false)
-          }, 1000);
-        });
-      
-    }, []);
-    
-    return [portfolio , load]
+        }, 1000);
+      });
+
+  }, []);
+
+  return [portfolio, load]
 }
 export default usePortfolio;

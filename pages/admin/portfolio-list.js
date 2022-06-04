@@ -20,7 +20,7 @@ function PortfolioList({ title = "Admin" }) {
   // const [error, setError] = useState(false);
   // useEffect(() => {
   //   setError(true);
-  //   fetch("http://localhost:5000/portfolio")
+  //   fetch("https://intense-crag-46696.herokuapp.com/portfolio")
   //     .then((res) => res.json())
   //     .then((data) => {
   //       setPortfolio(data);
@@ -28,7 +28,7 @@ function PortfolioList({ title = "Admin" }) {
   //     });
   // }, []);
   const router = useRouter()
-  const [user , loading ] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const logout = () => {
     signOut(auth);
@@ -43,8 +43,8 @@ function PortfolioList({ title = "Admin" }) {
     setDropdownBlog(event);
   };
 
-  useEffect(()=>{
-    if(!user){
+  useEffect(() => {
+    if (!user) {
       router.push('/xlogin')
     }
   })
@@ -65,7 +65,7 @@ function PortfolioList({ title = "Admin" }) {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        const url = `http://localhost:5000/portfolio/${id}`;
+        const url = `https://intense-crag-46696.herokuapp.com/portfolio/${id}`;
         fetch(url, {
           method: "DELETE",
         })
@@ -80,7 +80,7 @@ function PortfolioList({ title = "Admin" }) {
       }
     });
   };
-      
+
   const override = css`display: block;
   margin: 0 auto;
   border-color: red;`
@@ -92,35 +92,35 @@ function PortfolioList({ title = "Admin" }) {
 
       <div className="dashboard">
         <div className="side-nav">
-        <Link href='/'>
-          <img
-            width={200}
-            className="m-2"
-            src="https://i.ibb.co/2nXZjsY/final.png"
-            alt=""
-          /></Link>
+          <Link href='/'>
+            <img
+              width={200}
+              className="m-2"
+              src="https://i.ibb.co/2nXZjsY/final.png"
+              alt=""
+            /></Link>
           <hr />
 
           <li>
             <Link href="/xadmin">Dashboard</Link>{" "}
           </li>
-   
-          <label htmlFor="touch2"><span  className="span">Blogs</span></label>               
-            <input type="checkbox" id="touch2" />
-            <ul className="slide2">
-              <li>  <Link href="/admin/add-blog">Add Blog</Link> </li> 
-              <li>    <Link href="/admin/blog-list">Blog List</Link></li>
-            </ul>
 
-          <label htmlFor="touch"><span className="span">Portfolio</span></label>               
-            <input type="checkbox" id="touch" />
-            <ul className="drop">
-              <li> <Link href="/admin/add-portfolio">Add Portfolio</Link></li> 
-              <li><Link href="/admin/portfolio-list">Portfolio List</Link></li>
-            </ul>
+          <label htmlFor="touch2"><span className="span">Blogs</span></label>
+          <input type="checkbox" id="touch2" />
+          <ul className="slide2">
+            <li>  <Link href="/admin/add-blog">Add Blog</Link> </li>
+            <li>    <Link href="/admin/blog-list">Blog List</Link></li>
+          </ul>
+
+          <label htmlFor="touch"><span className="span">Portfolio</span></label>
+          <input type="checkbox" id="touch" />
+          <ul className="drop">
+            <li> <Link href="/admin/add-portfolio">Add Portfolio</Link></li>
+            <li><Link href="/admin/portfolio-list">Portfolio List</Link></li>
+          </ul>
 
           <li className="log-out" onClick={logout}>
-            Log Out  <FontAwesomeIcon  className="ps-2" icon={faSignOut} /> 
+            Log Out  <FontAwesomeIcon className="ps-2" icon={faSignOut} />
           </li>
         </div>
         <div className="nav-content">
@@ -133,10 +133,10 @@ function PortfolioList({ title = "Admin" }) {
                   {loader ? (
                     <ClockLoader
 
-                    size={50}
-                    color={"#35d8ea"}
-                    css={override}
-                    /> 
+                      size={50}
+                      color={"#35d8ea"}
+                      css={override}
+                    />
                   ) : (
                     <>
                       <>
@@ -159,7 +159,7 @@ function PortfolioList({ title = "Admin" }) {
                                   <td>{portfolio.name}</td>
                                   <td>{portfolio?.date}</td>
                                   <td>
-                                  <button className="border-0 btn bg-info p-2 m-2 text-white fw-bold">
+                                    <button className="border-0 btn bg-info p-2 m-2 text-white fw-bold">
                                       <Link
                                         href={{
                                           pathname: "/admin/update-portfolio/[id]",
@@ -236,8 +236,8 @@ function PortfolioList({ title = "Admin" }) {
                 </ul>
               )}
               <li className="log-out" onClick={logout}>
-            <>Log Out </>
-          </li>
+                <>Log Out </>
+              </li>
             </div>
           </div>
         </div>

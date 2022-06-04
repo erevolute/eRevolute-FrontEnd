@@ -16,7 +16,7 @@ function BlogList({ title = "Blog List" }) {
   const [error, setError] = useState(false);
   useEffect(() => {
     setError(true);
-    fetch("http://localhost:5000/blogs")
+    fetch("https://intense-crag-46696.herokuapp.com/blogs")
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);
@@ -44,8 +44,8 @@ function BlogList({ title = "Blog List" }) {
   });
   if (loading) {
     return <div className="spin">
-    <Spinner className="spinner" animation="border" variant="info" />
-  </div>;
+      <Spinner className="spinner" animation="border" variant="info" />
+    </div>;
   }
 
   const handleDelete = (id) => {
@@ -59,7 +59,7 @@ function BlogList({ title = "Blog List" }) {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        const url = `http://localhost:5000/blogs/${id}`;
+        const url = `https://intense-crag-46696.herokuapp.com/blogs/${id}`;
         fetch(url, {
           method: "DELETE",
         })
@@ -83,13 +83,13 @@ function BlogList({ title = "Blog List" }) {
 
       <div className="dashboard">
         <div className="side-nav">
-        <Link href='/'>
-          <img
-            width={200}
-            className="m-2"
-            src="https://i.ibb.co/2nXZjsY/final.png"
-            alt=""
-          /></Link>
+          <Link href='/'>
+            <img
+              width={200}
+              className="m-2"
+              src="https://i.ibb.co/2nXZjsY/final.png"
+              alt=""
+            /></Link>
           <hr />
 
           <li>

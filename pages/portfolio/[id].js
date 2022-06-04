@@ -18,7 +18,7 @@ function PortfolioDetails({ title = "" }) {
 
   useEffect(() => {
     setIsLoading(true)
-    fetch(`http://localhost:5000/portfolio/${id}`)
+    fetch(`https://intense-crag-46696.herokuapp.com/portfolio/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setIsLoading(false)
@@ -42,48 +42,48 @@ function PortfolioDetails({ title = "" }) {
       </Head>
       <Header></Header>
       {
-        isLoading ? <Spinner className="spinner" animation="border" variant="info" /> :  <div className="portfolio-details">
-        <h1 className="fw-bold text-center">{portfolio.name} Gallery</h1>
-        <div className="port-gallery">
-          <div className="port-images">
-            <img className="thumb" src={`data:image/png;base64,${portfolio.img}`} />
-          </div>
-          <div className="port-images">
-            <img
-              className="thumb"
-              src={`data:image/png;base64,${portfolio.img2}`}
+        isLoading ? <Spinner className="spinner" animation="border" variant="info" /> : <div className="portfolio-details">
+          <h1 className="fw-bold text-center">{portfolio.name} Gallery</h1>
+          <div className="port-gallery">
+            <div className="port-images">
+              <img className="thumb" src={`data:image/png;base64,${portfolio.img}`} />
+            </div>
+            <div className="port-images">
+              <img
+                className="thumb"
+                src={`data:image/png;base64,${portfolio.img2}`}
               // src={portfolio.img2 ? portfolio.img2 : portfolio.img}
-            />
+              />
+            </div>
+            <div className="port-images">
+              <img
+                className="thumb"
+                src={`data:image/png;base64,${portfolio.img3}`}
+              />
+            </div>
           </div>
-          <div className="port-images">
-            <img
-              className="thumb"
-              src={`data:image/png;base64,${portfolio.img3}`}
-            />
+          <div className="port-content px-5">
+            <h1 className="text-center">
+              <a href={portfolio.siteLink}>Live Preview {portfolio.name}</a>
+            </h1>
+            <br />
+            <br />
+            <br />
+            <h4 className="m-2">Description</h4>
+            {ReactHtmlParser(portfolio?.description)}
+            <br />
+            <br />
+            <h4 className="m-2">Feature</h4>
+            <p>
+              <FontAwesomeIcon className="text-info fs-6" icon={faCheckDouble} />{" "}
+              {portfolio.features?.split(".")[0]}
+            </p>
+            <p>
+              <FontAwesomeIcon className="text-info fs-6" icon={faCheckDouble} />{" "}
+              {portfolio.features?.split(".")[1]}
+            </p>
           </div>
         </div>
-        <div className="port-content px-5">
-          <h1 className="text-center">
-            <a href={portfolio.siteLink}>Live Preview {portfolio.name}</a>
-          </h1>
-          <br />
-          <br />
-          <br />
-          <h4 className="m-2">Description</h4>
-          {ReactHtmlParser(portfolio?.description)}
-          <br />
-          <br />
-          <h4 className="m-2">Feature</h4>
-          <p>
-            <FontAwesomeIcon className="text-info fs-6" icon={faCheckDouble} />{" "}
-            {portfolio.features?.split(".")[0]}
-          </p>
-          <p>
-            <FontAwesomeIcon className="text-info fs-6" icon={faCheckDouble} />{" "}
-            {portfolio.features?.split(".")[1]}
-          </p>
-        </div>
-      </div>
       }
 
       <Footer></Footer>
