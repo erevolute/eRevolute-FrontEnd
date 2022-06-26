@@ -22,8 +22,9 @@ function Contact() {
         <br />
         <h3 className="text-dark fw-bold">Phone</h3>
         <p className="">
-            +880 2405422618 <br />
-            Mon-Sat: 10:00Am - 7:30Pm
+         +880 1676 777000
+<br />
+            Sat-web: 10:00Am - 8:00Pm
         </p>
         
        </div>
@@ -34,7 +35,7 @@ function Contact() {
         </div>
         <br />
         <h3 className="text-dark p-0  fw-bold">Address</h3>
-        <p>Dhaka Mirpur 124,Dhaka <br />
+        <p>House: 1331 , Road# 11, Mirpur DOHS, Dhaka <br />
         Banladesh
         </p>
         </div>
@@ -47,10 +48,9 @@ function Contact() {
         <br />
         <h3 className="text-dark fw-bold">Mail</h3>
          
-          <p className="">eRevolute@gmail.com<br />
-            Mon-Sat: 10:00Am - 7:30Pm</p>
+          <p className="">info@erevolute.com<br />
+          Sat-web: 10:00Am - 8:00Pm</p>
        </div>
-
       </div>
         <hr className="w-75 m-auto" />
         <br />
