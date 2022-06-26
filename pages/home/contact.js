@@ -35,7 +35,7 @@ function Contact() {
         </div>
         <br />
         <h3 className="text-dark p-0  fw-bold">Address</h3>
-        <p>House: 1331 , Road# 11, Mirpur DOHS, Dhaka <br />
+        <p>House # 1331, Road # 11, Mirpur DOHS, Dhaka<br />
         Banladesh
         </p>
         </div>
